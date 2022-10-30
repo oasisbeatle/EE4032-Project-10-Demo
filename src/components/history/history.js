@@ -107,7 +107,7 @@ export default function History(props){
     //         document.getElementById('RecordList').innerHTML = text;
     //     }
     //     // <RecordDisplay record = {props.recordList[0]}/>
-        
+
     // }
 
     const HistoryPage = () => {
@@ -119,7 +119,7 @@ export default function History(props){
                         <hr color = "black" width = "100%"/>
                         <Menu />
                         <hr color = "black" width = "100%"/>
-                        
+
                         <ListUnitDisplay index = {1}/>
                         <ListUnitDisplay index = {2}/>
                         <ListUnitDisplay index = {3}/>
@@ -132,19 +132,20 @@ export default function History(props){
                         <ListUnitDisplay index = {10}/>
                     </div>
                 </div>
-    
-                <GlobalToolBar/>
             </div>
         )
     }
 
     return (
         <div>
+            <GlobalToolBar/>
+        <div>
             {
                 props.isConnected ?
                 <HistoryPage />:
                 <Navigate to = '/InterfaceDemo' />
             }
+        </div>
         </div>
     )
 }

@@ -3,13 +3,14 @@ import { Navigate } from "react-router-dom";
 import "./profile.css";
 import "../../global.css";
 import { GlobalToolBar } from "../../global";
-import METAMASK from '../../images/METAMASK.png';
+import METAMASK from '../../images/MetaMask_Fox.svg';
 
 export default function Profile(props){
 
     const ProfilePage = () => {
         return (
-            
+        <div>
+        <GlobalToolBar/>
         <div className = "profile-background">
             <div className = "profile">
                 <img src = {METAMASK} alt = "logo" height = "100%"/>
@@ -17,7 +18,6 @@ export default function Profile(props){
                     <p>
                         <b>Profile details</b>
                     </p>
-                    <hr color = "black"/>
                     <p>
                         Address:&nbsp;
                         <span className = "global-message">{props.address}</span>
@@ -31,10 +31,9 @@ export default function Profile(props){
                     </p>
                 </div>
             </div>
-
-            <GlobalToolBar/>
         </div>
-            
+        </div>
+
         )
     }
 

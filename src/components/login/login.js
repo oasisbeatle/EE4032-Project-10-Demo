@@ -8,13 +8,13 @@ export default function Login(props){
         return (
             <div>
                 <p>
-                    No MetaMask detected. 
+                    No MetaMask detected.
                     <br></br>
                     Please install&nbsp;
                     <span className = "login-highlight">
-                        METAMASK 
+                        METAMASK
                     </span>
-                    &nbsp;to your browser to proceed. 
+                    &nbsp;to your browser to proceed.
                 </p>
             </div>
         )
@@ -26,9 +26,9 @@ export default function Login(props){
                 <p>
                     Please log in with&nbsp;
                     <span className = "login-highlight">
-                        METAMASK 
+                        METAMASK
                     </span>
-                    &nbsp;to proceed. 
+                    &nbsp;to proceed.
                 </p>
                 <a className = "global-link" onClick = {props.connectTo}>
                     Click here to connect

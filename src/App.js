@@ -9,23 +9,24 @@ import Login from "./components/login/login";
 import Profile from "./components/profile/profile";
 import Storage from "./components/storage/storage";
 import History from "./components/history/history";
+import GetBacker from "./components/getbacker/getbacker";
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from "./contracts/config";
 
 export default function App() {
-    const [haveMetamask, setHaveMetamask] = useState(true);     // check if the browser has MetaMask installed. 
-    const [address, setAddress] = useState(null);               // address of connected MetaMask account. 
-    const [network, setNetwork] = useState(null);               // network the account is using. 
-    const [balance, setBalance] = useState(0);                  // balance of connected MetaMask account. 
-    const [isConnected, setIsConnected] = useState(false);      // check if is connected to MetaMask account. 
+    const [haveMetamask, setHaveMetamask] = useState(true);     // check if the browser has MetaMask installed.
+    const [address, setAddress] = useState(null);               // address of connected MetaMask account.
+    const [network, setNetwork] = useState(null);               // network the account is using.
+    const [balance, setBalance] = useState(0);                  // balance of connected MetaMask account.
+    const [isConnected, setIsConnected] = useState(false);      // check if is connected to MetaMask account.
 
-    const [storedPending, setStoredPending] = useState(false);        // check if a value is pending. 
-    const [storedDone, setStoredDone] = useState(false);        // check if a value is stored. 
-    const [storedVal, setStoredVal] = useState(0);              // value that is stored right now. 
-    const [showVal, setShowVal] = useState(0);                  // value that is showed on screen. 
+    const [storedPending, setStoredPending] = useState(false);        // check if a value is pending.
+    const [storedDone, setStoredDone] = useState(false);        // check if a value is stored.
+    const [storedVal, setStoredVal] = useState(0);              // value that is stored right now.
+    const [showVal, setShowVal] = useState(0);                  // value that is showed on screen.
 
-    const [historyRecord, setHistoryRecord] = useState(null);   // record of history operations. 
-    const [recordLen, setRecordLen] = useState(0);              // length of record. 
-    const maxRecordLen = 50;                                    // maximum length of record list. 
+    const [historyRecord, setHistoryRecord] = useState(null);   // record of history operations.
+    const [recordLen, setRecordLen] = useState(0);              // length of record.
+    const maxRecordLen = 50;                                    // maximum length of record list.
 
     const navigate = useNavigate();
     const {ethereum} = window;
@@ -44,8 +45,8 @@ export default function App() {
     //     checkMetamaskAvailability();
     // }, []);
 
-////// connect to MetaMask. 
-    const connectWallet = async () => {         // function that connect to METAMASK account, activated when clicking on 'connect'. 
+////// connect to MetaMask.
+    const connectWallet = async () => {         // function that connect to METAMASK account, activated when clicking on 'connect'.
         try {
             if (!ethereum){
                 setHaveMetamask(false);
@@ -79,8 +80,8 @@ export default function App() {
     }
 
 
-////// Contract Deployment. 
-    // IMPORTANT: async / await is essential to get values instead of Promise. 
+////// Contract Deployment.
+    // IMPORTANT: async / await is essential to get values instead of Promise.
     const storeData = async (inputVal) => {
         const res = await contract.methods.set(inputVal).send({from: address});
         return res;
@@ -92,7 +93,7 @@ export default function App() {
     }
 
 
-////// history recording. 
+////// history recording.
     const RecordOverFlow = () => {
         if (recordLen > maxRecordLen){
             let outlierNum = recordLen - maxRecordLen;
@@ -125,7 +126,7 @@ export default function App() {
                 else{
                     setStoredDone(true);
                     console.log('Done');
-                    console.log(detail);    // show the details of transaction. 
+                    console.log(detail);    // show the details of transaction.
                     cost = detail.gasUsed;
                     stat = 1;
                 }
@@ -133,11 +134,11 @@ export default function App() {
         }
 
         const newRecord = {
-            id: recordLen + 1, 
-            address: address, 
-            operation: opr, 
-            value: val, 
-            cost: cost, 
+            id: recordLen + 1,
+            address: address,
+            operation: opr,
+            value: val,
+            cost: cost,
             status: stat
         };
         if (recordLen === 0){
@@ -154,7 +155,7 @@ export default function App() {
     }
 
 
-////// store and get value. 
+////// store and get value.
     const storedValUpdate = async () => {
         const inputVal = document.getElementById('inputVal').value;
         setStoredPending(false);
@@ -167,14 +168,14 @@ export default function App() {
         else {
             setStoredPending(true);
             setStoredVal(inputVal);
-            
+
             try{
-                const detail = await storeData(inputVal);   // contract deployed. 
-                RecordPush('store', inputVal, detail);      // recorded. 
+                const detail = await storeData(inputVal);   // contract deployed.
+                RecordPush('store', inputVal, detail);      // recorded.
             }
             catch(err){
-                const detail = 'null';                      // no detail info. 
-                RecordPush('store', inputVal, detail);      // recorded. 
+                const detail = 'null';                      // no detail info.
+                RecordPush('store', inputVal, detail);      // recorded.
             }
         }
     }
@@ -189,13 +190,13 @@ export default function App() {
     }
 
 
-////// display functions. 
+////// display functions.
     const ProfileDisplay = () => {
         return (
-            <Profile 
+            <Profile
                 isConnected = {isConnected}
-                address = {address} 
-                networkType = {network} 
+                address = {address}
+                networkType = {network}
                 balance = {balance}
             />
         )
@@ -203,11 +204,11 @@ export default function App() {
 
     const StorageDisplay = () => {
         return (
-            <Storage 
+            <Storage
                 isConnected = {isConnected}
-                storeValHandle = {storedValUpdate} 
-                showValHandle = {showValUpdate} 
-                showVal = {showVal} 
+                storeValHandle = {storedValUpdate}
+                showValHandle = {showValUpdate}
+                showVal = {showVal}
                 storedPending = {storedPending}
                 storedDone = {storedDone}
             />
@@ -216,10 +217,19 @@ export default function App() {
 
     const HistoryDisplay = () => {
         return (
-            <History 
+            <History
                 isConnected = {isConnected}
                 recordList = {historyRecord}
                 recordLen = {recordLen}
+            />
+        )
+    }
+
+    const BackerDisplay = () => {
+        return (
+            <GetBacker
+                isConnected = {isConnected}
+                address={address}
             />
         )
     }
@@ -233,9 +243,9 @@ export default function App() {
                     <Route path = "/InterfaceDemo/profile" element = {<ProfileDisplay/>}></Route>
                     <Route path = "/InterfaceDemo/storage" element = {<StorageDisplay/>}></Route>
                     <Route path = "/InterfaceDemo/history" element = {<HistoryDisplay/>}></Route>
+                    <Route path = "/InterfaceDemo/getbacker" element = {<BackerDisplay/>}></Route>
                 </Routes>
             </div>
         // </BrowserRouter>
     );
 }
-

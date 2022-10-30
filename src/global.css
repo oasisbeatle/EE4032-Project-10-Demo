@@ -1,3 +1,4 @@
+@import 'bootstrap/dist/css/bootstrap.css';
 
 :root{
     --BackgroundCovered: #282c34;
@@ -15,6 +16,24 @@
     --ApprovedColor: #55EEAA;
     --InvalidColor: #EAEA67;
     --RejectedColor: #EF7788;
+}
+
+.a{
+    color: #000000;
+    text-decoration: none;
+}
+
+.login-logo{
+
+}
+.navbar.navbar-inverse {
+  border: none;
+}
+.navbar .navbar-brand {
+  padding-top: 0px;
+}
+.navbar .navbar-brand img {
+  height: 50px;
 }
 
 .global-message{
