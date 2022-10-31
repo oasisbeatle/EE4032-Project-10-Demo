@@ -42,11 +42,8 @@ export default function Login(props){
             <img src = {logo} className = "login-logo" alt = "logo" />
             <h2>
                 22-23 Sem 1 EE4032 <br/>
-                Project Interface Demo
+                Project 10 Demo
                 <br/>
-                <span className = "login-author">
-                    Developed by: Yan Ge
-                </span>
             </h2>
             {
                 props.isHaveMetamask ?

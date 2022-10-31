@@ -17,7 +17,7 @@ export const TopbarColor = '#61dafb';
 
 export const GlobalToolBar = () => {
     return (
-      <Navbar bg='light' variant='light' expand='lg'>
+      <Navbar bg='dark' variant='light' expand='lg'>
         <Container>
         <Navbar.Brand>
           <Link to = "/InterfaceDemo">

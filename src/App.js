@@ -18,6 +18,7 @@ export default function App() {
     const [network, setNetwork] = useState(null);               // network the account is using.
     const [balance, setBalance] = useState(0);                  // balance of connected MetaMask account.
     const [isConnected, setIsConnected] = useState(false);      // check if is connected to MetaMask account.
+    const [isBacked, setIsBacked] = useState([]);
 
     const [storedPending, setStoredPending] = useState(false);        // check if a value is pending.
     const [storedDone, setStoredDone] = useState(false);        // check if a value is stored.
@@ -33,6 +34,7 @@ export default function App() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
     const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+
 
     // useEffect(() => {
     //     const { ethereum } = window;
@@ -82,112 +84,148 @@ export default function App() {
 
 ////// Contract Deployment.
     // IMPORTANT: async / await is essential to get values instead of Promise.
-    const storeData = async (inputVal) => {
-        const res = await contract.methods.set(inputVal).send({from: address});
+    const backProject = async () => {
+        const res = await contract.methods.back().send({from: address});
         return res;
     }
 
-    const getData = async () => {
-        const res = await contract.methods.get().call();
-        return res;
+    const withdrawProject = async () => {
+        const wid = await contract.methods.withdraw().call();
+        return wid;
     }
 
+    // const getData = async () => {
+    //     const res = await contract.methods.get().call();
+    //     return res;
+    // }
 
-////// history recording.
-    const RecordOverFlow = () => {
-        if (recordLen > maxRecordLen){
-            let outlierNum = recordLen - maxRecordLen;
-            setHistoryRecord(current => current.splice(1, outlierNum));
-            setRecordLen(maxRecordLen);
-        }
+
+//// history recording.
+    // const RecordOverFlow = () => {
+    //     if (recordLen > maxRecordLen){
+    //         let outlierNum = recordLen - maxRecordLen;
+    //         setHistoryRecord(current => current.splice(1, outlierNum));
+    //         setRecordLen(maxRecordLen);
+    //     }
+    // }
+    //
+    // const RecordPush = (opr, val, detail) => {
+    //     let stat = 1;
+    //     let cost = 0;
+    //     if (val.length === 0){
+    //         val = 'NA';
+    //         cost = 'NA';
+    //         stat = 0;
+    //     }
+    //     else{
+    //         if (opr === 'get'){
+    //             cost = 0;
+    //             stat = 1;
+    //         }
+    //         else{
+    //             if (detail === 'null'){
+    //                 setStoredPending(false);
+    //                 setStoredDone(true);
+    //                 console.log('Rejected');
+    //                 cost = 'NA';
+    //                 stat = 2;
+    //             }
+    //             else{
+    //                 setStoredDone(true);
+    //                 console.log('Done');
+    //                 console.log(detail);    // show the details of transaction.
+    //                 cost = detail.gasUsed;
+    //                 stat = 1;
+    //             }
+    //         }
+    //     }
+    //
+    //     const newRecord = {
+    //         id: recordLen + 1,
+    //         address: address,
+    //         operation: opr,
+    //         value: val,
+    //         cost: cost,
+    //         status: stat
+    //     };
+    //     if (recordLen === 0){
+    //         setHistoryRecord([newRecord, newRecord]);
+    //     }
+    //     else{
+    //         setHistoryRecord(current => [...current, newRecord]);
+    //     }
+    //     setRecordLen(recordLen + 1);
+    //
+    //     if (recordLen > maxRecordLen){
+    //         RecordOverFlow();
+    //     }
+    // }
+    //
+    // const RecordOverFlow = () => {
+    //     if (recordLen > maxRecordLen){
+    //         let outlierNum = recordLen - maxRecordLen;
+    //         setHistoryRecord(current => current.splice(1, outlierNum));
+    //         setRecordLen(maxRecordLen);
+    //     }
+    // }
+
+
+/// Let us allow the user to back a project
+    const backProjectUpdate = async () => {
+              try{
+                  const detail = await backProject();   // contract deployed.
+                  // RecordPush('back', project, address);      // recorded
+                  setIsBacked(true);
+              }
+              catch(err){
+                  console.log("Error encountered While Backing");
+              }
     }
 
-    const RecordPush = (opr, val, detail) => {
-        let stat = 1;
-        let cost = 0;
-        if (val.length === 0){
-            val = 'NA';
-            cost = 'NA';
-            stat = 0;
-        }
-        else{
-            if (opr === 'get'){
-                cost = 0;
-                stat = 1;
-            }
-            else{
-                if (detail === 'null'){
-                    setStoredPending(false);
-                    setStoredDone(true);
-                    console.log('Rejected');
-                    cost = 'NA';
-                    stat = 2;
-                }
-                else{
-                    setStoredDone(true);
-                    console.log('Done');
-                    console.log(detail);    // show the details of transaction.
-                    cost = detail.gasUsed;
-                    stat = 1;
-                }
-            }
-        }
-
-        const newRecord = {
-            id: recordLen + 1,
-            address: address,
-            operation: opr,
-            value: val,
-            cost: cost,
-            status: stat
-        };
-        if (recordLen === 0){
-            setHistoryRecord([newRecord, newRecord]);
-        }
-        else{
-            setHistoryRecord(current => [...current, newRecord]);
-        }
-        setRecordLen(recordLen + 1);
-
-        if (recordLen > maxRecordLen){
-            RecordOverFlow();
-        }
+    const withdrawVal= async () => {
+              try{
+                  const detail = await withdrawProject();
+                  setIsBacked(false);
+              }
+              catch(err){
+                  console.log("Error encountered while Withdrawing");
+              }
     }
 
 
 ////// store and get value.
-    const storedValUpdate = async () => {
-        const inputVal = document.getElementById('inputVal').value;
-        setStoredPending(false);
-        setStoredDone(false);
-
-        if (inputVal.length === 0) {
-            const detail = 'null';
-            RecordPush('store', inputVal, detail);
-        }
-        else {
-            setStoredPending(true);
-            setStoredVal(inputVal);
-
-            try{
-                const detail = await storeData(inputVal);   // contract deployed.
-                RecordPush('store', inputVal, detail);      // recorded.
-            }
-            catch(err){
-                const detail = 'null';                      // no detail info.
-                RecordPush('store', inputVal, detail);      // recorded.
-            }
-        }
-    }
-
-    const showValUpdate = async () => {
-        const ans = await getData();
-        setStoredPending(false);
-        setStoredDone(false);
-
-        setShowVal(ans);
-        RecordPush('get', ans);
-    }
+    // const storedValUpdate = async () => {
+    //     const inputVal = document.getElementById('inputVal').value;
+    //     setStoredPending(false);
+    //     setStoredDone(false);
+    //
+    //     if (inputVal.length === 0) {
+    //         const detail = 'null';
+    //         RecordPush('store', inputVal, detail);
+    //     }
+    //     else {
+    //         setStoredPending(true);
+    //         setStoredVal(inputVal);
+    //
+    //         try{
+    //             const detail = await storeData(inputVal);   // contract deployed.
+    //             RecordPush('store', inputVal, detail);      // recorded.
+    //         }
+    //         catch(err){
+    //             const detail = 'null';                      // no detail info.
+    //             RecordPush('store', inputVal, detail);      // recorded.
+    //         }
+    //     }
+    // }
+    //
+    // const showValUpdate = async () => {
+    //     const ans = await getData();
+    //     setStoredPending(false);
+    //     setStoredDone(false);
+    //
+    //     setShowVal(ans);
+    //     RecordPush('get', ans);
+    // }
 
 
 ////// display functions.
@@ -205,12 +243,6 @@ export default function App() {
     const StorageDisplay = () => {
         return (
             <Storage
-                isConnected = {isConnected}
-                storeValHandle = {storedValUpdate}
-                showValHandle = {showValUpdate}
-                showVal = {showVal}
-                storedPending = {storedPending}
-                storedDone = {storedDone}
             />
         )
     }
@@ -230,6 +262,8 @@ export default function App() {
             <GetBacker
                 isConnected = {isConnected}
                 address={address}
+                isBacked={isBacked}
+                storeValHandle={backProjectUpdate}
             />
         )
     }
