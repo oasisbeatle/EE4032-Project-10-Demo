@@ -1,7 +1,7 @@
 {
   "name": "interface-demo",
   "version": "0.1.0",
-  "homepage": "https://dududududulu.github.io/InterfaceDemo",
+  "homepage": "https://oasisbeatle.github.io/EE4032-Project-10-Demo/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
