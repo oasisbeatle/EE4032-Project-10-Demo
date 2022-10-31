@@ -1,16 +1,18 @@
 # Getting Started with GetBacker
 
-## To interact with the contract ->
+## To interact with the contract
 
-### Run `npm start`
+1. Clone the project into a local director
 
-### Login with your Metamask Account 
+2. Run `npm start` in the root directory
 
-### Go to the Webpage "Get Backer"
+3. Login with your Metamask Account 
 
-### Back The Project (Note: The backing amount is fixed to 0.0001 GoerliETH, may vary based on gas price)
+4. Go to the Webpage "Get Backer"
 
-### After Backing, Withdraw from the project to get your gETH back 
+5. Back The Project (Note: The backing amount is fixed to 0.0001 GoerliETH, may vary based on gas price)
+
+6. After Backing, Withdraw from the project to get your gETH back 
 
 ## Available Scripts
 
