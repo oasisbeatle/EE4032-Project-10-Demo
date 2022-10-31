@@ -85,7 +85,7 @@ export default function App() {
 ////// Contract Deployment.
     // IMPORTANT: async / await is essential to get values instead of Promise.
     const backProject = async () => {
-        const res = await contract.methods.back().send({from: address});
+        const res = await contract.methods.back().send({from: address, value: ethers.utils.parseEther("0.00001"), gasLimit:21000});
         return res;
     }
 
