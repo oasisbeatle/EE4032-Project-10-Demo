@@ -40,6 +40,11 @@ export default function GetBacker(props){
           <br></br>
           <p> A 100% waterproof, high-top sneaker made for unpredictable weather | Comfort of a sneaker. Performance of a boot. </p>
           <p>Connected Account: {props.address}</p>
+          <br></br>
+          <p>
+              Milestone:&nbsp;
+              <span className = "global-message">{props.milestone}</span>
+          </p>
           <div>
               <input type="number" className="backingAmount" defaultValue={1}/>
                   <label htmlFor="donationAmount">GoerliETH</label>
@@ -58,6 +63,12 @@ export default function GetBacker(props){
                <button className="refund" type="button" onClick={props.withdrawVal}>
                         Request Withdrawal
                </button>
+          </div>
+          <br></br>
+          <div>
+            <button className="refund" type="button" onClick={props.getMilestone}>
+                     Get Milestone
+            </button>
           </div>
       </div>
     )

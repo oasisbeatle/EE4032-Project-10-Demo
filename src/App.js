@@ -23,7 +23,9 @@ export default function App() {
     const [storedPending, setStoredPending] = useState(false);        // check if a value is pending.
     const [storedDone, setStoredDone] = useState(false);        // check if a value is stored.
     const [storedVal, setStoredVal] = useState(0);              // value that is stored right now.
-    const [showVal, setShowVal] = useState(0);                  // value that is showed on screen.
+    const [showVal, setShowVal] = useState(0);               // value that is showed on screen.
+
+    const [milestoneVal, setMilestoneVal] = useState(0);
 
     const [historyRecord, setHistoryRecord] = useState(null);   // record of history operations.
     const [recordLen, setRecordLen] = useState(0);              // length of record.
@@ -92,6 +94,11 @@ export default function App() {
     const withdrawProject = async () => {
         const wid = await contract.methods.withdraw().call();
         return wid;
+    }
+
+    const getMilestoneVal = async () => {
+        const miles = await contract.methods.getMilestone().call();
+        return miles;
     }
 
     // const getData = async () => {
@@ -193,6 +200,16 @@ export default function App() {
               }
     }
 
+    const getMilestone = async() => {
+            try{
+                const miles = await getMilestoneVal();
+                setMilestoneVal(miles);
+            }
+            catch(err){
+                console.log(err);
+            }
+    }
+
 
 ////// store and get value.
     // const storedValUpdate = async () => {
@@ -265,6 +282,9 @@ export default function App() {
                 address={address}
                 isBacked={isBacked}
                 storeValHandle={backProjectUpdate}
+                getMilestone={getMilestone}
+                milestone={milestoneVal}
+                withdrawVal={withdrawProjectUpdate}
             />
         )
     }
@@ -278,7 +298,7 @@ export default function App() {
                     <Route path = "/InterfaceDemo/profile" element = {<ProfileDisplay/>}></Route>
                     <Route path = "/InterfaceDemo/storage" element = {<StorageDisplay/>}></Route>
                     <Route path = "/InterfaceDemo/history" element = {<HistoryDisplay/>}></Route>
-                    <Route path = "/InterfaceDemo/getbacker" element = {<BackerDisplay/>}></Route>
+                    <Route path = "/InterfaceDemo/getbacker" element = {<BackerDisplay />}></Route>
                 </Routes>
             </div>
         // </BrowserRouter>
