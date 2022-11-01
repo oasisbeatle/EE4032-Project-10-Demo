@@ -96,6 +96,16 @@ export default function App() {
         return res;
     }
 
+    const recountMilestone = async () => {
+        const res = await contract.methods.recountMilestone().send({from: address});
+        return res;
+    }
+
+    const backingPhaseEnd = async () => {
+        const res = await contract.methods.backingPhaseEnd().send({from: address});
+        return res;
+    }
+
     const withdrawProject = async () => {
         const wid = await contract.methods.withdraw().call();
         return wid;
@@ -197,7 +207,25 @@ export default function App() {
         catch(err){
             console.error(err);
         }
-}
+    }
+
+    const recountMilestoneUpdate = async () => {
+        try{
+            await recountMilestone();
+        }
+        catch(err){
+            console.error(err);
+        }
+    }
+
+    const backingPhaseEndUpdate = async () => {
+        try{
+            await backingPhaseEnd();
+        }
+        catch(err){
+            console.error(err);
+        }
+    }
 
     const withdrawProjectUpdate= async () => {
               try{
@@ -284,6 +312,8 @@ export default function App() {
                 voteHandle={voteUpdate}
                 voted={voted}
                 setVoted={setVoted}
+                recountMilestoneUpdate={recountMilestoneUpdate}
+                backingPhaseEndUpdate={backingPhaseEndUpdate}
             />
         )
     }
