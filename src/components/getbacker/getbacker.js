@@ -30,6 +30,10 @@ export default function GetBacker(props){
       return  <Button variant="danger">Withdraw</Button>;
   }
 
+  const handleChangeVoteNum = event => {
+    props.setVoted(event.target.value);
+  };
+
   const HomePage = () =>{
     return(
       <div>
@@ -41,17 +45,37 @@ export default function GetBacker(props){
           <p> A 100% waterproof, high-top sneaker made for unpredictable weather | Comfort of a sneaker. Performance of a boot. </p>
           <p>Connected Account: {props.address}</p>
           <div>
-              <input type="number" className="backingAmount" defaultValue={1}/>
-                  <label htmlFor="donationAmount">GoerliETH</label>
+              {/* <input type="number" className="backingAmount" defaultValue={1}/> */}
+                  {/* <label htmlFor="donationAmount">GoerliETH</label> */}
                     <button onClick={props.storeValHandle} className="backing" type="button">
                       Back This Product
                     </button>
           </div>
           <br></br>
           <div>
+               <button className="endBackingPhase" type="button" onClick={props.backingPhaseEndUpdate}>
+                        End Backing Phase
+               </button>
+          </div>
+          <br></br>
+          <div>
               <button className="amount" type="button">
                         See Total Contribution Amount
               </button>
+          </div>
+          <br></br>
+          <div>
+              <label htmlFor="Phase">Phase</label>
+              <input type="number" value={props.voted} onChange={handleChangeVoteNum} className="vote"/>
+              <button onClick={props.voteHandle} className="voteButton" type="button">
+                        Vote
+              </button>
+          </div>
+          <br></br>
+          <div>
+               <button className="recountMilestone" type="button" onClick={props.recountMilestoneUpdate}>
+                        Recount Milestone
+               </button>
           </div>
           <br></br>
           <div>

@@ -35,6 +35,8 @@ export default function App() {
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
     const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
 
+    const [voted, setVoted] = useState(2);
+
 
     // useEffect(() => {
     //     const { ethereum } = window;
@@ -86,6 +88,21 @@ export default function App() {
     // IMPORTANT: async / await is essential to get values instead of Promise.
     const backProject = async () => {
         const res = await contract.methods.back().send({from: address, value: ethers.utils.parseEther("0.0001"), gasLimit:100000});
+        return res;
+    }
+
+    const vote = async () => {
+        const res = await contract.methods.voteOnMilestone(voted).send({from: address});
+        return res;
+    }
+
+    const recountMilestone = async () => {
+        const res = await contract.methods.recountMilestone().send({from: address});
+        return res;
+    }
+
+    const backingPhaseEnd = async () => {
+        const res = await contract.methods.backingPhaseEnd().send({from: address});
         return res;
     }
 
@@ -183,6 +200,33 @@ export default function App() {
               }
     }
 
+    const voteUpdate = async () => {
+        try{
+            await vote();
+        }
+        catch(err){
+            console.error(err);
+        }
+    }
+
+    const recountMilestoneUpdate = async () => {
+        try{
+            await recountMilestone();
+        }
+        catch(err){
+            console.error(err);
+        }
+    }
+
+    const backingPhaseEndUpdate = async () => {
+        try{
+            await backingPhaseEnd();
+        }
+        catch(err){
+            console.error(err);
+        }
+    }
+
     const withdrawProjectUpdate= async () => {
               try{
                   const detail = await withdrawProject();
@@ -265,6 +309,11 @@ export default function App() {
                 address={address}
                 isBacked={isBacked}
                 storeValHandle={backProjectUpdate}
+                voteHandle={voteUpdate}
+                voted={voted}
+                setVoted={setVoted}
+                recountMilestoneUpdate={recountMilestoneUpdate}
+                backingPhaseEndUpdate={backingPhaseEndUpdate}
             />
         )
     }
