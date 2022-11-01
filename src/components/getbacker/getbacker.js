@@ -115,7 +115,7 @@ export default function GetBacker(props){
         return(<BackingStateZero/>);
       }
       else if(props.milestone === '1'){
-        return(<BackingStateZero/>);
+        return(<BackingStateOne/>);
       }
       else{
         return(<BackingStateAlt/>);
