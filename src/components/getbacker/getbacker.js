@@ -58,7 +58,7 @@ export default function GetBacker(props){
           </div>
           <br></br>
           <div>
-               <button className="endBackingPhase" type="button" onClick={props.backingPhaseEndUpdate}>
+               <button className="endBackingPhase" disabled={props.disableEndBackingPhaseButton} type="button" onClick={props.backingPhaseEndUpdate}>
                         End Backing Phase
                </button>
           </div>
@@ -78,7 +78,7 @@ export default function GetBacker(props){
           </div>
           <br></br>
           <div>
-               <button className="recountMilestone" type="button" onClick={props.recountMilestoneUpdate}>
+               <button className="recountMilestone" disabled={props.disableRecountMilestoneButton} type="button" onClick={props.recountMilestoneUpdate}>
                         Recount Milestone
                </button>
           </div>

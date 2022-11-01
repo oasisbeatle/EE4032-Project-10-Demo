@@ -38,6 +38,8 @@ export default function App() {
     const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
 
     const [voted, setVoted] = useState(2);
+    const [disableEndBackingPhaseButton, setDisableEndBackingPhaseButton] = useState(false);
+    const [disableRecountMilestoneButton, setDisableRecountMilestoneButton] = useState(false);
 
 
     // useEffect(() => {
@@ -248,10 +250,42 @@ export default function App() {
             try{
                 const miles = await getMilestoneVal();
                 setMilestoneVal(miles);
+                recalculateDisableButtons();
             }
             catch(err){
                 console.log(err);
             }
+    }
+
+
+    const recalculateDisableButtons = async() => {
+        const miles = await contract.methods.getMilestone().call();
+        const endtime = await contract.methods.getBackingEndTime().call();
+
+        const currentBlock = await provider.getBlockNumber();
+        const blockTimestamp = (await provider.getBlock(currentBlock)).timestamp;
+
+        setDisableEndBackingPhaseButton(!(miles == 1 && blockTimestamp > endtime));
+
+        const milestoneAmount = await contract.methods.getMilestoneAmount().call();
+
+        const payoutPercentageMilestone = await contract.methods.getPayoutPercentage(miles).call();
+
+        var maxVotesI;
+        var maxVotesNum;
+        for(var i = 0; i < milestoneAmount; i++){
+            const votes = await contract.methods.getVotesPerMilestone(i).call();
+            const payoutPercentageI = await contract.methods.getPayoutPercentage(i).call();
+            if((payoutPercentageI >= payoutPercentageMilestone) && (i != 1) && ((i > miles) || (i == 0))){
+                if(votes > maxVotesNum){
+                    maxVotesI = i;
+                    maxVotesNum = votes;
+                }
+            }
+        }
+        var milestone = maxVotesI;
+
+        setDisableRecountMilestoneButton(!(miles > 1 && miles != milestone));
     }
 
 
@@ -334,6 +368,8 @@ export default function App() {
                 setVoted={setVoted}
                 recountMilestoneUpdate={recountMilestoneUpdate}
                 backingPhaseEndUpdate={backingPhaseEndUpdate}
+                disableEndBackingPhaseButton={disableEndBackingPhaseButton}
+                disableRecountMilestoneButton={disableRecountMilestoneButton}
 
             />
         )
