@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge'
 
 
+
 import home from '../../images/home.svg';
 import p1 from '../../images/p1.jpg';
 import p2 from '../../images/p2.png';
@@ -22,19 +23,106 @@ export default function GetBacker(props){
     navigate('/InterfaceDemo');
   }
 
-  function BackDisplay(){
-      return <Button variant="primary" onClick={props.storeValHandle}>Back Project</Button>;
-  }
-
-  function WithdrawDisplay (){
-      return  <Button variant="danger">Withdraw</Button>;
-  }
-
   const handleChangeVoteNum = event => {
     props.setVoted(event.target.value);
   };
 
-  const HomePage = () =>{
+  const BackingStateZero = () =>{
+    return(
+      <div>
+        <p>
+            Milestone:&nbsp;
+            <span className = "global-message">{props.milestone}</span>
+        </p>
+        <br></br>
+        <div>
+           <button className="refund" type="button" onClick={props.withdrawVal}>
+            Refund
+           </button>
+        </div>
+    </div>
+    )
+  }
+
+  const BackingStateOne = () =>{
+      return(
+        <div>
+            <p>
+                Milestone:&nbsp;
+                <span className = "global-message">{props.milestone}</span>
+            </p>
+            <div>
+                {/* <input type="number" className="backingAmount" defaultValue={1}/> */}
+                    {/* <label htmlFor="donationAmount">GoerliETH</label> */}
+                      <button onClick={props.storeValHandle} className="backing" type="button">
+                        Back This Product
+                      </button>
+            </div>
+            <br></br>
+            <div>
+                 <button className="endBackingPhase" type="button" onClick={props.backingPhaseEndUpdate}>
+                          End Backing Phase
+                 </button>
+            </div>
+            <br></br>
+            <div>
+                 <button className="recountMilestone" type="button" onClick={props.recountMilestoneUpdate}>
+                          Recount Milestone
+                 </button>
+            </div>
+            <br></br>
+            <div>
+              <button className="refund" type="button" onClick={props.getMilestone}>
+                          Update
+              </button>
+            </div>
+        </div>
+      )
+    }
+
+  const BackingStateAlt = () =>{
+    return(
+      <div>
+          <p>
+              Milestone:&nbsp;
+              <span className = "global-message">{props.milestone}</span>
+          </p>
+          <div>
+            <label htmlFor="Phase">Phase</label>
+            <input type="number" value={props.voted} onChange={handleChangeVoteNum} className="vote"/>
+            <button onClick={props.voteHandle} className="voteButton" type="button">
+                      Vote
+            </button>
+          </div>
+          <br></br>
+          <div>
+               <button className="refund" type="button" onClick={props.withdrawVal}>
+                        Refund
+               </button>
+          </div>
+          <br></br>
+          <div>
+                <button className="refund" type="button" onClick={props.getMilestone}>
+                            Update
+                </button>
+          </div>
+      </div>
+      )
+  }
+
+  function ChooseBackingState(){
+      if(props.milestone === '0'){
+        return(<BackingStateZero/>);
+      }
+      else if(props.milestone === '1'){
+        return(<BackingStateZero/>);
+      }
+      else{
+        return(<BackingStateAlt/>);
+      }
+  }
+
+  const HomePage = () => {
     return(
       <div>
           <br></br>
@@ -45,91 +133,48 @@ export default function GetBacker(props){
           <p> A 100% waterproof, high-top sneaker made for unpredictable weather | Comfort of a sneaker. Performance of a boot. </p>
           <p>Connected Account: {props.address}</p>
           <br></br>
-          <p>
-              Milestone:&nbsp;
-              <span className = "global-message">{props.milestone}</span>
-          </p>
           <div>
-              {/* <input type="number" className="backingAmount" defaultValue={1}/> */}
-                  {/* <label htmlFor="donationAmount">GoerliETH</label> */}
-                    <button onClick={props.storeValHandle} className="backing" type="button">
-                      Back This Product
-                    </button>
-          </div>
-          <br></br>
-          <div>
-               <button className="endBackingPhase" type="button" onClick={props.backingPhaseEndUpdate}>
-                        End Backing Phase
-               </button>
-          </div>
-          <br></br>
-          <div>
-              <button className="amount" type="button">
-                        See Total Contribution Amount
-              </button>
-          </div>
-          <br></br>
-          <div>
-              <label htmlFor="Phase">Phase</label>
-              <input type="number" value={props.voted} onChange={handleChangeVoteNum} className="vote"/>
-              <button onClick={props.voteHandle} className="voteButton" type="button">
-                        Vote
-              </button>
-          </div>
-          <br></br>
-          <div>
-               <button className="recountMilestone" type="button" onClick={props.recountMilestoneUpdate}>
-                        Recount Milestone
-               </button>
-          </div>
-          <br></br>
-          <div>
-               <button className="refund" type="button" onClick={props.withdrawVal}>
-                        Request Withdrawal
-               </button>
-          </div>
-          <br></br>
-          <div>
-            <button className="refund" type="button" onClick={props.getMilestone}>
-                     Get Milestone
-            </button>
+            {
+              <ChooseBackingState/>
+             }
           </div>
       </div>
     )
   }
 
-const carousel = () =>{
-  return(
-    <div>
-    <Carousel className = "carousel" interval={null}>
-      <Carousel.Item className = "carousel-item">
-        <img src = {p1} className = "card card--1" alt = "prod" />
-        <Carousel.Caption>
-              <h1> <BackDisplay/></h1>
-              <p> <WithdrawDisplay/></p>
-              <p> <Badge bg="light" text="dark">Backing Amount: </Badge></p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item className = "carousel-item">
-        <img src = {p2} className = "card card--2" alt = "prod" />
-        <Carousel.Caption>
-          <h1> <BackDisplay/></h1>
-          <p> <WithdrawDisplay/></p>
-          <p> <Badge bg="light" text="dark">Backing Amount: </Badge></p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item className = "carousel-item">
-        <img src = {p3} className = "card card--3" alt = "prod" />
-        <Carousel.Caption>
-          <h1> <BackDisplay/></h1>
-          <p> <WithdrawDisplay/></p>
-          <p> <Badge bg="light" text="dark">Backing Amount: </Badge></p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
-    </div>
-  )
-}
+
+//   const carousel = () =>{
+//     return(
+//       <div>
+//         <Carousel className = "carousel" interval={null}>
+//           <Carousel.Item className = "carousel-item">
+//             <img src = {p1} className = "card card--1" alt = "prod" />
+//             <Carousel.Caption>
+//                   <h1> <BackDisplay/></h1>
+//                   <p> <WithdrawDisplay/></p>
+//                   <p> <Badge bg="light" text="dark">Backing Amount: </Badge></p>
+//             </Carousel.Caption>
+//           </Carousel.Item>
+//           <Carousel.Item className = "carousel-item">
+//             <img src = {p2} className = "card card--2" alt = "prod" />
+//             <Carousel.Caption>
+//               <h1> <BackDisplay/></h1>
+//               <p> <WithdrawDisplay/></p>
+//               <p> <Badge bg="light" text="dark">Backing Amount: </Badge></p>
+//             </Carousel.Caption>
+//           </Carousel.Item>
+//           <Carousel.Item className = "carousel-item">
+//             <img src = {p3} className = "card card--3" alt = "prod" />
+//             <Carousel.Caption>
+//               <h1> <BackDisplay/></h1>
+//               <p> <WithdrawDisplay/></p>
+//               <p> <Badge bg="light" text="dark">Backing Amount: </Badge></p>
+//             </Carousel.Caption>
+//           </Carousel.Item>
+//         </Carousel>
+//       </div>
+//   )
+// }
 
   return (
       <div>
