@@ -41,8 +41,8 @@ export default function GetBacker(props){
           <p> A 100% waterproof, high-top sneaker made for unpredictable weather | Comfort of a sneaker. Performance of a boot. </p>
           <p>Connected Account: {props.address}</p>
           <div>
-              <input type="number" className="backingAmount" defaultValue={0.00001}/>
-                  <label htmlFor="donationAmount">ETH</label>
+              <input type="number" className="backingAmount" defaultValue={1}/>
+                  <label htmlFor="donationAmount">GoerliETH</label>
                     <button onClick={props.storeValHandle} className="backing" type="button">
                       Back This Product
                     </button>
