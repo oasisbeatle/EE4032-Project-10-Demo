@@ -85,7 +85,7 @@ export default function App() {
 ////// Contract Deployment.
     // IMPORTANT: async / await is essential to get values instead of Promise.
     const backProject = async () => {
-        const res = await contract.methods.back().send({from: address});
+        const res = await contract.methods.back().send({from: address, value: ethers.utils.parseEther("0.0001"), gasLimit:100000});
         return res;
     }
 
@@ -178,17 +178,18 @@ export default function App() {
                   setIsBacked(true);
               }
               catch(err){
-                  console.log("Error encountered While Backing");
+                  console.log(CONTRACT_ADDRESS);
+                  console.log(err);
               }
     }
 
-    const withdrawVal= async () => {
+    const withdrawProjectUpdate= async () => {
               try{
                   const detail = await withdrawProject();
                   setIsBacked(false);
               }
               catch(err){
-                  console.log("Error encountered while Withdrawing");
+                  console.log(err);
               }
     }
 
