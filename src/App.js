@@ -8,7 +8,7 @@ import './App.css';
 import Login from "./components/login/login";
 import Profile from "./components/profile/profile";
 import Storage from "./components/storage/storage";
-import History from "./components/history/history";
+import CreateProject from "./components/createProject/createProject";
 import GetBacker from "./components/getbacker/getbacker";
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from "./contracts/config";
 
@@ -343,12 +343,11 @@ export default function App() {
         )
     }
 
-    const HistoryDisplay = () => {
+    const CreateProjectDispay = () => {
         return (
-            <History
-                isConnected = {isConnected}
-                recordList = {historyRecord}
-                recordLen = {recordLen}
+            <CreateProject
+            isConnected = {isConnected}
+            address={address}
             />
         )
     }
@@ -383,7 +382,7 @@ export default function App() {
                     <Route path = "/InterfaceDemo" element = {<Login isHaveMetamask = {haveMetamask} connectTo = {connectWallet} />}></Route>
                     <Route path = "/InterfaceDemo/profile" element = {<ProfileDisplay/>}></Route>
                     <Route path = "/InterfaceDemo/storage" element = {<StorageDisplay/>}></Route>
-                    <Route path = "/InterfaceDemo/history" element = {<HistoryDisplay/>}></Route>
+                    <Route path = "/InterfaceDemo/createProject" element = {<CreateProjectDispay/>}></Route>
                     <Route path = "/InterfaceDemo/getbacker" element = {<BackerDisplay />}></Route>
                 </Routes>
             </div>
