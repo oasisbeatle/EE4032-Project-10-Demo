@@ -3,6 +3,25 @@
 pragma solidity >=0.4.22 <0.6.0;
 
 //create our contract
+contract CrowdFundingList {
+    mapping(uint => address) contractList;
+    uint iterator = 0;
+
+    function AddContractToList(address a) public {
+        contractList[iterator] = a;
+        iterator++;
+    }
+
+    function getProject(uint p) public view returns (address){
+        return contractList[p];
+    }
+
+    function getCount() public view returns (uint){
+        return iterator;
+    }
+}
+
+//create our contract
 contract CrowdFunding {
     //set the beneficiary of the contract, this will be the company running the project
     address payable public beneficiary;
@@ -43,7 +62,14 @@ contract CrowdFunding {
         address payable _beneficiary,
         uint _backingValue, //in wei
         uint _milestoneAmount,
-        uint _totalBackingRequired
+        uint _totalBackingRequired,
+        string memory _title,
+        string memory _description,
+        string memory _image,
+        uint per2,
+        uint per3,
+        uint per4,
+        address listAddress
     ) public {
         //set the global variables accordingly
         beneficiary = _beneficiary;
@@ -51,6 +77,15 @@ contract CrowdFunding {
         backingValue = _backingValue;
         milestoneAmount = _milestoneAmount;
         totalBackingRequired = _totalBackingRequired;
+        title = _title;
+        description = _description;
+        image = _image;
+        payoutPercentage[2] = per2;
+        payoutPercentage[3] = per3;
+        payoutPercentage[4] = per4;
+
+        CrowdFundingList list = CrowdFundingList(listAddress);
+        list.AddContractToList(address(this));
     }
 
     //setup the payoutPercentage variable correctly

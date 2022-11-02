@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge'
 import {useState} from 'react';
 import {ethers} from 'ethers';
-import { CONTRACT_ABI, CONTRACT_BYTECODE } from "../../contracts/config";
+import { CONTRACT_ABI, CONTRACT_BYTECODE, LIST_CONTRACT_ADDRESS } from "../../contracts/config";
 
 
 import home from '../../images/home.svg';
@@ -35,14 +35,14 @@ function HomePage(props){
     event.preventDefault();
   }
 
-  const deployContract = (provider, address, listContract) => {
+  const deployContract = (provider, address) => {
     document.getElementById("deployForm").reset();
     setPageState(1);
     (async function() {
       try{
         var factory = new ethers.ContractFactory(CONTRACT_ABI, CONTRACT_BYTECODE.object, provider.getSigner());
-        let contract = await factory.deploy(ethers.BigNumber.from(time), address, ethers.BigNumber.from(val), ethers.BigNumber.from(5), ethers.BigNumber.from(tot), title, description, URL, ethers.BigNumber.from(per1), ethers.BigNumber.from(per2), ethers.BigNumber.from(100));
-        listContract.methods.AddContractToList(contract.address).call();
+        let contract = await factory.deploy(ethers.BigNumber.from(time), address, ethers.BigNumber.from(val), ethers.BigNumber.from(5), ethers.BigNumber.from(tot), title, description, URL, ethers.BigNumber.from(per1), ethers.BigNumber.from(per2), ethers.BigNumber.from(100), LIST_CONTRACT_ADDRESS);
+        console.log(contract);
         setPageState(2);
       }catch(err){
         setPageState(3);
@@ -105,7 +105,7 @@ function HomePage(props){
             <br></br>
           </form>
 
-          <button className="createProject" type="button" onClick={() => {deployContract(props.provider, props.address, props.listContract)}}>
+          <button className="createProject" type="button" onClick={() => {deployContract(props.provider, props.address)}}>
               Create Project
             </button>
       </div>
@@ -134,8 +134,7 @@ export default function CreateProject(props){
           {
               props.isConnected ?
               <HomePage provider={props.provider}
-                        address = {props.address}
-                        listContract = {props.listContract}/>:
+                        address = {props.address}/>:
               <Navigate to = '/InterfaceDemo' />
           }
       </div>

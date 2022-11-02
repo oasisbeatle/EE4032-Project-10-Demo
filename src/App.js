@@ -365,7 +365,6 @@ export default function App() {
             isConnected = {isConnected}
             address={address}
             provider={provider}
-            listContract={listContract}
             />
         )
     }
