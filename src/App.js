@@ -1,6 +1,7 @@
 import {Routes, Route} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import {useState} from 'react';
+import {useEffect} from 'react';
 import {ethers} from 'ethers';
 import Web3 from "web3";
 
@@ -118,6 +119,14 @@ export default function App() {
         return miles;
     }
 
+    const getTotalBackingRequiredVal = async () => {
+        const val = await contract.methods.getTotalBackingRequired().call();
+        return val;
+    }
+
+    const getBackingVal = async () => {
+        const val = await contract.methods.getTotalBacking().call();
+    }
     // const getData = async () => {
     //     const res = await contract.methods.get().call();
     //     return res;
@@ -254,6 +263,11 @@ export default function App() {
             }
     }
 
+    useEffect(() => {
+      console.log("executed only once!");
+      getMilestone();
+    }, [""]);
+
 
 ////// store and get value.
     // const storedValUpdate = async () => {
@@ -348,7 +362,7 @@ export default function App() {
                     <Route path = "/InterfaceDemo/profile" element = {<ProfileDisplay/>}></Route>
                     <Route path = "/InterfaceDemo/storage" element = {<StorageDisplay/>}></Route>
                     <Route path = "/InterfaceDemo/history" element = {<HistoryDisplay/>}></Route>
-                    <Route path = "/InterfaceDemo/getbacker" element = {<BackerDisplay />}></Route>
+                    <Route path = "/InterfaceDemo/getbacker" element = {<BackerDisplay/>}></Route>
                 </Routes>
             </div>
         // </BrowserRouter>
