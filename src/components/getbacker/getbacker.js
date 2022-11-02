@@ -2,7 +2,9 @@ import { Navigate } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
-import Badge from 'react-bootstrap/Badge'
+import Badge from 'react-bootstrap/Badge';
+import {ethers} from 'ethers';
+import Web3 from "web3";
 
 
 

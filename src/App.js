@@ -11,7 +11,8 @@ import Profile from "./components/profile/profile";
 import Storage from "./components/storage/storage";
 import CreateProject from "./components/createProject/createProject";
 import GetBacker from "./components/getbacker/getbacker";
-import { CONTRACT_ABI, CONTRACT_ADDRESS } from "./contracts/config";
+import { CONTRACT_ABI, CONTRACT_ADDRESS, LIST_CONTRACT_ADDRESS, LIST_CONTRACT_ABI} from "./contracts/config";
+import { ListGroup } from "react-bootstrap";
 
 export default function App() {
     const [haveMetamask, setHaveMetamask] = useState(true);     // check if the browser has MetaMask installed.
@@ -37,6 +38,7 @@ export default function App() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
     const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+    const listContract = new web3.eth.Contract(LIST_CONTRACT_ABI, LIST_CONTRACT_ADDRESS);
 
     const [voted, setVoted] = useState(2);
     const [disableEndBackingPhaseButton, setDisableEndBackingPhaseButton] = useState(false);
@@ -362,6 +364,8 @@ export default function App() {
             <CreateProject
             isConnected = {isConnected}
             address={address}
+            provider={provider}
+            listContract={listContract}
             />
         )
     }

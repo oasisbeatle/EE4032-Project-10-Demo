@@ -32,6 +32,11 @@ contract CrowdFunding {
     //set minimum total backing
     uint public totalBackingRequired;
 
+    //user information
+    string title;
+    string description;
+    string image;
+
     //the contructor:
     constructor(
         uint _backingTime, 
@@ -56,6 +61,13 @@ contract CrowdFunding {
         require(milestoneNum != 0 && milestoneNum != 1, "The payout for failing and backing phase must be 0.");
         require(milestone == 1, "Must be defined in backing phase.");
         payoutPercentage[milestoneNum] = percentage;
+    }
+
+    function setUserInfo(string memory _title, string memory _description, string memory _image) public {
+        require(msg.sender == beneficiary, "Only the beneficiary can change the user information.");
+        title = _title;
+        description = _description;
+        image = _image;
     }
 
     //the function called to back the project
@@ -165,4 +177,52 @@ contract CrowdFunding {
         }
         return false;
     }
+
+    function getMilestone() public view returns(uint){
+        return milestone;
+    }
+
+    function getBeneficiary() public view returns(address){
+        return beneficiary;
+    }
+
+    function getMilestoneAmount() public view returns(uint){
+        return milestoneAmount;
+    }
+
+    function getVotesPerMilestone(uint i) public view returns(uint){
+        return votesPerMilestone[i];
+    }
+
+    function getPayoutPercentage(uint i) public view returns(uint){
+        return payoutPercentage[i];
+    }
+
+    function getBackingEndTime() public view returns(uint){
+        return backingEndTime;
+    }
+
+    function getBackingValue() public view returns(uint){
+        return backingValue;
+    }
+
+    function getTotalBackingRequired() public view returns(uint){
+        return totalBackingRequired;
+    }
+
+    function getTotalMoney() public view returns(uint){
+        return totalMoney;
+    }
+
+    function getTitle() public view returns(string memory){
+        return title;
+    } 
+
+    function getDescription() public view returns(string memory){
+        return description;
+    } 
+
+    function getImage() public view returns(string memory){
+        return image;
+    } 
 }
