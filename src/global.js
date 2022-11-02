@@ -34,7 +34,7 @@ export const GlobalToolBar = () => {
               <Link to = "/InterfaceDemo/getbacker">Get Backer</Link>
             </Nav.Link>
             <Nav.Link>
-              <Link to = "/InterfaceDemo/history">History</Link>
+              <Link to = "/InterfaceDemo/createProject">Create Project</Link>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
