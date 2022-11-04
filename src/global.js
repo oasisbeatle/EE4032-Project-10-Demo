@@ -36,6 +36,9 @@ export const GlobalToolBar = () => {
             <Nav.Link>
               <Link to = "/InterfaceDemo/createProject">Create Project</Link>
             </Nav.Link>
+            <Nav.Link>
+              <Link to = "/InterfaceDemo/testing">Testing</Link>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
         </Container>

@@ -127,6 +127,25 @@ export default function GetBacker(props){
   const HomePage = () => {
     return(
       <div>
+          {/* <div class="table">
+            <ul id="horizontal-list">
+              <li>
+                <span className = "global-message">Projects</span>
+                <span className = "global-message">1</span>
+                <br></br>
+              </li>
+              <li>
+                <span className = "global-message">Backing</span>
+                <span className = "global-message">1</span>
+                <br></br>
+              </li>
+              <li>
+                <span className = "global-message">Donated</span>
+                <span className = "global-message">{props.address} ETH</span>
+                <br></br>
+              </li>
+            </ul>
+          </div> */}
           <br></br>
           <h1> Meet Cloudburst - The Sneaker That Can Take On Any Weather </h1>
           <img src = {p1} className = "image" alt = "prod" />
