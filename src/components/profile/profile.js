@@ -4,22 +4,23 @@ import "./profile.css";
 import "../../global.css";
 import { GlobalToolBar } from "../../global";
 import METAMASK from '../../images/MetaMask_Fox.svg';
+import Card from 'react-bootstrap/Card';
 
 
 
 export default function Profile(props){
   return (
-    <div className="">
-      // Nagi's Banner
+      <div>
+          <GlobalToolBar/>
+          <div>
+            {props.projects.map((project, i) => (
+                <Card style={{ width: '18rem' }}>
+                    <Card.Title> {project} </Card.Title>
+                </Card>
+            ))}
+          </div>
+      </div>
 
-
-
-
-
-
-
-
-    </div>
   )
 }
 
