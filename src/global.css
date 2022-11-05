@@ -1,15 +1,15 @@
 @import 'bootstrap/dist/css/bootstrap.css';
 
 :root{
-    --BackgroundCovered: #282c34;
+    --BackgroundCovered: #3bedb7;
     --BackgroundUncovered: white;
     --BackgroundMasked: #E9E9E9;
 
-    --MessageColorCovered: white;
+    --MessageColorCovered: #4f4f50;
     --MessageColorUncovered: black;
     --MessageColorFooter: #fa7233;
 
-    --HighlightColor: yellow;
+    --HighlightColor: black;
     --KeyMessageColor: #ff2233;
     --TopbarColor: #61dafb;
 
