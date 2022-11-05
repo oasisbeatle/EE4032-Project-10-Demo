@@ -9,9 +9,10 @@ import './App.css';
 import Login from "./components/login/login";
 import Profile from "./components/profile/profile";
 import Storage from "./components/storage/storage";
-import History from "./components/history/history";
+import CreateProject from "./components/createProject/createProject";
 import GetBacker from "./components/getbacker/getbacker";
-import { CONTRACT_ABI, CONTRACT_ADDRESS } from "./contracts/config";
+import { CONTRACT_ABI, CONTRACT_ADDRESS, LIST_CONTRACT_ADDRESS, LIST_CONTRACT_ABI} from "./contracts/config";
+import { ListGroup } from "react-bootstrap";
 
 export default function App() {
     const [haveMetamask, setHaveMetamask] = useState(true);     // check if the browser has MetaMask installed.
@@ -37,8 +38,11 @@ export default function App() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
     const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+    const listContract = new web3.eth.Contract(LIST_CONTRACT_ABI, LIST_CONTRACT_ADDRESS);
 
     const [voted, setVoted] = useState(2);
+    const [disableEndBackingPhaseButton, setDisableEndBackingPhaseButton] = useState(false);
+    const [disableRecountMilestoneButton, setDisableRecountMilestoneButton] = useState(false);
 
 
     // useEffect(() => {
@@ -257,6 +261,7 @@ export default function App() {
             try{
                 const miles = await getMilestoneVal();
                 setMilestoneVal(miles);
+                recalculateDisableButtons();
             }
             catch(err){
                 console.log(err);
@@ -267,6 +272,37 @@ export default function App() {
       console.log("executed only once!");
       getMilestone();
     }, [""]);
+
+
+    const recalculateDisableButtons = async() => {
+        const miles = await contract.methods.getMilestone().call();
+        const endtime = await contract.methods.getBackingEndTime().call();
+
+        const currentBlock = await provider.getBlockNumber();
+        const blockTimestamp = (await provider.getBlock(currentBlock)).timestamp;
+
+        setDisableEndBackingPhaseButton(!(miles == 1 && blockTimestamp > endtime));
+
+        const milestoneAmount = await contract.methods.getMilestoneAmount().call();
+
+        const payoutPercentageMilestone = await contract.methods.getPayoutPercentage(miles).call();
+
+        var maxVotesI;
+        var maxVotesNum;
+        for(var i = 0; i < milestoneAmount; i++){
+            const votes = await contract.methods.getVotesPerMilestone(i).call();
+            const payoutPercentageI = await contract.methods.getPayoutPercentage(i).call();
+            if((payoutPercentageI >= payoutPercentageMilestone) && (i != 1) && ((i > miles) || (i == 0))){
+                if(votes > maxVotesNum){
+                    maxVotesI = i;
+                    maxVotesNum = votes;
+                }
+            }
+        }
+        var milestone = maxVotesI;
+
+        setDisableRecountMilestoneButton(!(miles > 1 && miles != milestone));
+    }
 
 
 ////// store and get value.
@@ -323,12 +359,12 @@ export default function App() {
         )
     }
 
-    const HistoryDisplay = () => {
+    const CreateProjectDispay = () => {
         return (
-            <History
-                isConnected = {isConnected}
-                recordList = {historyRecord}
-                recordLen = {recordLen}
+            <CreateProject
+            isConnected = {isConnected}
+            address={address}
+            provider={provider}
             />
         )
     }
@@ -348,6 +384,8 @@ export default function App() {
                 setVoted={setVoted}
                 recountMilestoneUpdate={recountMilestoneUpdate}
                 backingPhaseEndUpdate={backingPhaseEndUpdate}
+                disableEndBackingPhaseButton={disableEndBackingPhaseButton}
+                disableRecountMilestoneButton={disableRecountMilestoneButton}
 
             />
         )
@@ -361,8 +399,8 @@ export default function App() {
                     <Route path = "/InterfaceDemo" element = {<Login isHaveMetamask = {haveMetamask} connectTo = {connectWallet} />}></Route>
                     <Route path = "/InterfaceDemo/profile" element = {<ProfileDisplay/>}></Route>
                     <Route path = "/InterfaceDemo/storage" element = {<StorageDisplay/>}></Route>
-                    <Route path = "/InterfaceDemo/history" element = {<HistoryDisplay/>}></Route>
-                    <Route path = "/InterfaceDemo/getbacker" element = {<BackerDisplay/>}></Route>
+                    <Route path = "/InterfaceDemo/createProject" element = {<CreateProjectDispay/>}></Route>
+                    <Route path = "/InterfaceDemo/getbacker" element = {<BackerDisplay />}></Route>
                 </Routes>
             </div>
         // </BrowserRouter>
