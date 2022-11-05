@@ -1,6 +1,7 @@
 import './login.css';
 import '../../global.css';
-import logo from '../../images/logo.svg';
+import logo from '../../images/back-it.gif';
+import Button from 'react-bootstrap/Button';
 
 export default function Login(props){
 
@@ -23,16 +24,11 @@ export default function Login(props){
     const LoginMetamask = () => {
         return (
             <div>
-                <p>
-                    Please log in with&nbsp;
-                    <span className = "login-highlight">
-                        METAMASK
-                    </span>
-                    &nbsp;to proceed.
-                </p>
-                <a className = "global-link" onClick = {props.connectTo}>
-                    Click here to connect
-                </a>
+                <br/>
+                <Button variant="secondary" className= "connectButton"
+                  onClick = {props.connectTo} size="lg">
+                  Connect With Metamask
+                </Button>
             </div>
         )
     }
@@ -41,8 +37,8 @@ export default function Login(props){
         <div className = "login">
             <img src = {logo} className = "login-logo" alt = "logo" />
             <h2>
-                22-23 Sem 1 EE4032 <br/>
-                Project 10 Demo
+                Get <br/>
+                Backer.
                 <br/>
             </h2>
             {
