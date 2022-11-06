@@ -17,18 +17,16 @@
 
 
 .card{
-  position: relative;
-  margin: relative;
-  height: 200px;
-  width: 90%;
-  flex-direction: row;
-  border: 1px solid #BEBEBE;
+  height: 200px !important;
+  width: 70% !important;
+  flex-direction: row !important;
+  border: 1px solid #BEBEBE !important;;
 
 }
 
 .cardContainer{
   margin: auto;
-  padding-top: 150px;
+  padding-top:200px;
 }
 
 .backimage{

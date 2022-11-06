@@ -21,7 +21,6 @@ export default function App() {
     const [network, setNetwork] = useState(null);               // network the account is using.
     const [balance, setBalance] = useState(0);                  // balance of connected MetaMask account.
     const [isConnected, setIsConnected] = useState(false);      // check if is connected to MetaMask account.
-    const [isBacked, setIsBacked] = useState([]);
 
     const [storedPending, setStoredPending] = useState(false);        // check if a value is pending.
     const [storedDone, setStoredDone] = useState(false);        // check if a value is stored.
@@ -47,6 +46,11 @@ export default function App() {
 
     const [addressList, setAddressList] = useState([]);
     const [projectsList, setProjectsList] = useState([]);
+
+    const [currentContract, setContract] = useState(null);
+    const [currentTitle, setCurrentTitle] =useState(null);
+    const [currentImage, setCurrentImage] =useState(null);
+    const [currentDesc, setCurrentDesc] =useState(null);
 
 
 ////// connect to MetaMask.
@@ -87,42 +91,42 @@ export default function App() {
 ////// Contract Deployment.
     // IMPORTANT: async / await is essential to get values instead of Promise.
     const backProject = async () => {
-        const res = await contract.methods.back().send({from: address, value: ethers.utils.parseEther("0.0001"), gasLimit:100000});
+        const res = await currentContract.methods.back().send({from: address, value: ethers.utils.parseEther("0.0001"), gasLimit:100000});
         return res;
     }
 
     const vote = async () => {
-        const res = await contract.methods.voteOnMilestone(voted).send({from: address});
+        const res = await currentContract.methods.voteOnMilestone(voted).send({from: address});
         return res;
     }
 
     const recountMilestone = async () => {
-        const res = await contract.methods.recountMilestone().send({from: address});
+        const res = await currentContract.methods.recountMilestone().send({from: address});
         return res;
     }
 
     const backingPhaseEnd = async () => {
-        const res = await contract.methods.backingPhaseEnd().send({from: address});
+        const res = await currentContract.methods.backingPhaseEnd().send({from: address});
         return res;
     }
 
     const withdrawProject = async () => {
-        const wid = await contract.methods.withdraw().call();
+        const wid = await currentContract.methods.withdraw().call();
         return wid;
     }
 
     const getMilestoneVal = async () => {
-        const miles = await contract.methods.getMilestone().call();
+        const miles = await currentContract.methods.getMilestone().call();
         return miles;
     }
 
     const getTotalBackingRequiredVal = async () => {
-        const val = await contract.methods.getTotalBackingRequired().call();
+        const val = await currentContract.methods.getTotalBackingRequired().call();
         return val;
     }
 
     const getBackingVal = async () => {
-        const val = await contract.methods.getTotalBacking().call();
+        const val = await currentContract.methods.getTotalBacking().call();
         return val;
     }
 
@@ -138,9 +142,10 @@ export default function App() {
         const description = await projectContract.methods.getDescription().call();
         const image = await projectContract.methods.getImage().call();
         projectList.push({'id':i, 'title':title, 'description': description,
-        'image': image});
+        'image': image, 'address':address});
       }
       setProjectsList(projectList);
+      setAddressList(contractList);
     }
     // const getData = async () => {
     //     //const count = await listContract.methods.getCount().call();
@@ -158,7 +163,6 @@ export default function App() {
               try{
                   const detail = await backProject();   // contract deployed.
                   // RecordPush('back', project, address);      // recorded
-                  setIsBacked(true);
               }
               catch(err){
                   console.log(CONTRACT_ADDRESS);
@@ -196,7 +200,6 @@ export default function App() {
     const withdrawProjectUpdate= async () => {
               try{
                   const detail = await withdrawProject();
-                  setIsBacked(false);
               }
               catch(err){
                   console.log(err);
@@ -216,23 +219,23 @@ export default function App() {
 
 
     const recalculateDisableButtons = async() => {
-        const miles = await contract.methods.getMilestone().call();
-        const endtime = await contract.methods.getBackingEndTime().call();
+        const miles = await currentContract.methods.getMilestone().call();
+        const endtime = await currentContract.methods.getBackingEndTime().call();
 
         const currentBlock = await provider.getBlockNumber();
         const blockTimestamp = (await provider.getBlock(currentBlock)).timestamp;
 
         setDisableEndBackingPhaseButton(!(miles == 1 && blockTimestamp > endtime));
 
-        const milestoneAmount = await contract.methods.getMilestoneAmount().call();
+        const milestoneAmount = await currentContract.methods.getMilestoneAmount().call();
 
-        const payoutPercentageMilestone = await contract.methods.getPayoutPercentage(miles).call();
+        const payoutPercentageMilestone = await currentContract.methods.getPayoutPercentage(miles).call();
 
         var maxVotesI;
         var maxVotesNum;
         for(var i = 0; i < milestoneAmount; i++){
-            const votes = await contract.methods.getVotesPerMilestone(i).call();
-            const payoutPercentageI = await contract.methods.getPayoutPercentage(i).call();
+            const votes = await currentContract.methods.getVotesPerMilestone(i).call();
+            const payoutPercentageI = await currentContract.methods.getPayoutPercentage(i).call();
             if((payoutPercentageI >= payoutPercentageMilestone) && (i != 1) && ((i > miles) || (i == 0))){
                 if(votes > maxVotesNum){
                     maxVotesI = i;
@@ -245,12 +248,25 @@ export default function App() {
         setDisableRecountMilestoneButton(!(miles > 1 && miles != milestone));
     }
 
+    const updateProjectContract = async(address) => {
+      const contract = new web3.eth.Contract(CONTRACT_ABI, address);
+      setContract(contract);
+      const title = await contract.methods.getTitle().call();
+      const description = await contract.methods.getDescription().call();
+      const image = await contract.methods.getImage().call();
+      setCurrentTitle(title);
+      setCurrentDesc(description);
+      setCurrentImage(image);
+      navigate('/InterfaceDemo/getbacker');
+
+    }
 
 ////// display functions.
     const ProfileDisplay = () => {
         return (
             <Profile
               projects = {projectsList}
+              updateProject = {updateProjectContract}
             />
         )
     }
@@ -277,18 +293,21 @@ export default function App() {
             <GetBacker
                 isConnected = {isConnected}
                 address={address}
-                isBacked={isBacked}
-                storeValHandle={backProjectUpdate}
-                getMilestone={getMilestone}
+                getMilestone={getMilestone} //function
                 milestone={milestoneVal}
-                withdrawVal={withdrawProjectUpdate}
-                voteHandle={voteUpdate}
+                withdrawVal={withdrawProjectUpdate} //function
+                storeValHandle={backProjectUpdate} //function
+                voteHandle={voteUpdate} //function
+                recountMilestoneUpdate={recountMilestoneUpdate} //function
+                backingPhaseEndUpdate={backingPhaseEndUpdate} //function
+                title={currentTitle}
+                image={currentImage}
+                desc={currentDesc}
                 voted={voted}
                 setVoted={setVoted}
-                recountMilestoneUpdate={recountMilestoneUpdate}
-                backingPhaseEndUpdate={backingPhaseEndUpdate}
                 disableEndBackingPhaseButton={disableEndBackingPhaseButton}
                 disableRecountMilestoneButton={disableRecountMilestoneButton}
+
 
             />
         )

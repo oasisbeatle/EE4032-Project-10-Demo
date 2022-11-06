@@ -1,4 +1,6 @@
 import { Navigate } from "react-router-dom";
+import { Link } from "react-router-dom"
+
 
 import "./profile.css";
 import "../../global.css";
@@ -8,20 +10,26 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 
-
 export default function Profile(props){
+  const handler = (event) => {
+    props.updateProject(event.currentTarget.dataset.index);
+  }
 
   function RenderCards(){
     const ListItems = (card, index) => {
       return(
         <div>
-        <Card className="card" key={index}>
+        <Card key={index} className="card">
           <Card.Img variant="left" src={card.image} className="backimage"/>
           <Card.Body>
           <Card.Title> {card.title} </Card.Title>
           <Card.Text> {card.description} </Card.Text>
           <br></br>
-           <Button variant="primary">Go To Product</Button>
+          <div>
+           <Button variant="primary" data-index={card.address} onClick={handler}>
+            Go To Product
+           </Button>
+           </div>
           </Card.Body>
         </Card>
         <br></br>
