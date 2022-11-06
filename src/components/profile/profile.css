@@ -3,14 +3,8 @@
 .profile-background{
     background-size: 100%;
     background-position-x: center;
-
-    position: absolute;
     height: 100%;
     width: 100%;
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .profile{
@@ -21,13 +15,21 @@
     justify-content: center;
 }
 
-.profile-account{
-    font-size: 20px;
-    height: 100%;
-    width: 70%;
-    text-align: left;
-    padding-left: 20px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    color: var(--MessageColorUncovered);
+
+.card{
+  height: 200px !important;
+  width: 70% !important;
+  flex-direction: row !important;
+  border: 1px solid #BEBEBE !important;;
+
+}
+
+.cardContainer{
+  margin: auto;
+  padding-top:200px;
+}
+
+.backimage{
+  width: 20%;
+  border: 0.75px solid #BEBEBE;
 }

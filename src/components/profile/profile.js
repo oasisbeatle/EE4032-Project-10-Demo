@@ -1,29 +1,64 @@
 import { Navigate } from "react-router-dom";
+import { Link } from "react-router-dom"
+
 
 import "./profile.css";
 import "../../global.css";
 import { GlobalToolBar } from "../../global";
 import METAMASK from '../../images/MetaMask_Fox.svg';
-
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 
 export default function Profile(props){
+  const handler = (event) => {
+    props.updateProject(event.currentTarget.dataset.index);
+  }
+
+  function RenderCards(){
+    const ListItems = (card, index) => {
+      return(
+        <div>
+        <Card key={index} className="card">
+          <Card.Img variant="left" src={card.image} className="backimage"/>
+          <Card.Body>
+          <Card.Title> {card.title} </Card.Title>
+          <Card.Text> {card.description} </Card.Text>
+          <br></br>
+          <div>
+           <Button variant="primary" data-index={card.address} onClick={handler}>
+            Go To Product
+           </Button>
+           </div>
+          </Card.Body>
+        </Card>
+        <br></br>
+        </div>
+      );
+    };
+
+    return(
+      <div className="cardContainer">
+        {props.projects.map(ListItems)}
+      </div>
+    );
+  };
+
   return (
-    <div className="">
-      // Nagi's Banner
-
-
-
-
-
-
-
-
-    </div>
-  )
+      <div className="profile-background">
+        <GlobalToolBar/>
+        <RenderCards/>
+      </div>
+)
 }
 
 
+
+// {props.projects.map((project, i) => (
+//     <Card style={{ width: '18rem' }}>
+//         <Card.Title> {project} </Card.Title>
+//     </Card>
+// ))}
 
 
 //     const ProfilePage = () => {
