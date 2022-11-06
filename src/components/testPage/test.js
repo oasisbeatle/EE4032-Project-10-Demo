@@ -11,7 +11,7 @@ function Testing() {
     function handleClick(path) {
         navigate(path);
       }
-      
+
 
     return <div>
         <GlobalToolBar />
@@ -19,20 +19,17 @@ function Testing() {
             <br></br>
             <h1>
                 <span>Support Your Favourite Projects On Our</span>
-                <br />
+                <br/>
                 <span className="text-green-600">PLATFORM.</span>
             </h1>
-            <br />
-            <Button 
+            <br/>
+            <Button
             className="btn btn-info me-2"
             onClick ={()=>handleClick("/InterfaceDemo/createProject")}>
                 <span>Add Project</span>
             </Button>
-            <Button className="btn btn-info me-2"
-            onClick ={()=>handleClick("/InterfaceDemo/getbacker")}>
-                <span>Back Projects</span>
-            </Button>
-            <br />
+            <br></br>
+            <br></br>
             <div class="card-group container">
                 <div class="card text-white bg-info mb-3">
                     <div class="card-header">3</div>
@@ -57,7 +54,7 @@ function Testing() {
 
 
         </div>
-        
+
     </div>
 
 }

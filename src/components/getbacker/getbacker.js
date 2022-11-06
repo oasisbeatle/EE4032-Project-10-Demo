@@ -92,10 +92,10 @@ export default function GetBacker(props){
           <div>
             <label htmlFor="Phase">Phase</label>
             <input type="number" value={props.voted} onChange={handleChangeVoteNum} className="vote"/>
+            </div>
             <button onClick={props.voteHandle} className=" btn btn-info me-2 voteButton" type="button">
                       Vote
             </button>
-          </div>
           <br></br>
           <div class="btn-group" role="group" aria-label="Basic example">
           <div>
@@ -128,7 +128,7 @@ export default function GetBacker(props){
 
   const HomePage = () => {
     return(
-      <div className="HomePageBackground">
+      <div>
           {/* <div class="table">
             <ul id="horizontal-list">
               <li>
@@ -200,7 +200,7 @@ export default function GetBacker(props){
 // }
 
   return (
-      <div>
+      <div className="HomePageBackground">
           <GlobalToolBar/>
       <div>
           {
