@@ -4,6 +4,7 @@ import {useState} from 'react';
 import {useEffect} from 'react';
 import {ethers} from 'ethers';
 import Web3 from "web3";
+import {queriedProductList} from "./components/profile/dummylist.js"
 
 import './App.css';
 import Login from "./components/login/login";
@@ -44,7 +45,8 @@ export default function App() {
     const [disableEndBackingPhaseButton, setDisableEndBackingPhaseButton] = useState(false);
     const [disableRecountMilestoneButton, setDisableRecountMilestoneButton] = useState(false);
 
-    const [contractList, setContractList] = useState([]);
+    const [addressList, setAddressList] = useState([]);
+    const [projectsList, setProjectsList] = useState([]);
 
 
 ////// connect to MetaMask.
@@ -124,11 +126,32 @@ export default function App() {
         return val;
     }
 
-    const getData = async () => {
-        const count = await listContract.methods.getCount().call();
-        const projectList = await listContract.methods.getProject().call(count);
-        setContractList(projectList);
+    const getProjects = async() => {
+      var contractList =[]
+      var projectList = []
+      const count = await listContract.methods.getCount().call();
+      for(var i = 0; i < count; i++){
+        const address = await listContract.methods.getProject(i).call();
+        const projectContract = new web3.eth.Contract(CONTRACT_ABI, address);
+        contractList.push(projectContract)
+        const title = await projectContract.methods.getTitle().call();
+        const description = await projectContract.methods.getDescription().call();
+        const image = await projectContract.methods.getImage().call();
+        projectList.push({'id':i, 'title':title, 'description': description,
+        'image': image});
+      }
+      setProjectsList(projectList);
     }
+    // const getData = async () => {
+    //     //const count = await listContract.methods.getCount().call();
+    //     const projectList = queriedProductList;//await listContract.methods.getProject().call(count);
+    //     setContractList(projectList);
+    //     // for(let i = 0; i < projectList.length; i++){
+    //     //   setContractList(projectList[i]);
+    //     //   console.log(contractList);
+    //     // }
+    //     //setContractList(projectList);
+    // }
 
 /// Let us allow the user to back a project
     const backProjectUpdate = async () => {
@@ -227,7 +250,7 @@ export default function App() {
     const ProfileDisplay = () => {
         return (
             <Profile
-              projects = {contractList}
+              projects = {projectsList}
             />
         )
     }
@@ -273,7 +296,7 @@ export default function App() {
 
     useEffect(() => {
       getMilestone();
-      getData();
+      getProjects();
     }, [""]);
 
 
