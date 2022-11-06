@@ -21,9 +21,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 export default function GetBacker(props){
   const navigate = useNavigate();
 
-  const loginPage = () => {
-    navigate('/InterfaceDemo');
-  }
+  // const loginPage = () => {
+  //   navigate('/InterfaceDemo');
+  // }
 
   const handleChangeVoteNum = event => {
     props.setVoted(event.target.value);
@@ -149,11 +149,11 @@ export default function GetBacker(props){
             </ul>
           </div> */}
           <br></br>
-          <h1> Meet Cloudburst - The Sneaker That Can Take On Any Weather </h1>
-          <img src = {p1} className = "image" alt = "prod" />
+          <h1>{props.title}</h1>
+          <img src = {props.image} className = "image" alt = "prod" />
           <br></br>
           <br></br>
-          <p> A 100% waterproof, high-top sneaker made for unpredictable weather | Comfort of a sneaker. Performance of a boot. </p>
+          <p>{props.desc}</p>
           <p>Connected Account: {props.address}</p>
           <br></br>
           <div>

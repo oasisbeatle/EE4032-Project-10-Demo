@@ -4,6 +4,7 @@ import {useState} from 'react';
 import {useEffect} from 'react';
 import {ethers} from 'ethers';
 import Web3 from "web3";
+import {queriedProductList} from "./components/profile/dummylist.js"
 
 import './App.css';
 import Login from "./components/login/login";
@@ -21,7 +22,6 @@ export default function App() {
     const [network, setNetwork] = useState(null);               // network the account is using.
     const [balance, setBalance] = useState(0);                  // balance of connected MetaMask account.
     const [isConnected, setIsConnected] = useState(false);      // check if is connected to MetaMask account.
-    const [isBacked, setIsBacked] = useState([]);
 
     const [storedPending, setStoredPending] = useState(false);        // check if a value is pending.
     const [storedDone, setStoredDone] = useState(false);        // check if a value is stored.
@@ -45,17 +45,14 @@ export default function App() {
     const [disableEndBackingPhaseButton, setDisableEndBackingPhaseButton] = useState(false);
     const [disableRecountMilestoneButton, setDisableRecountMilestoneButton] = useState(false);
 
+    const [addressList, setAddressList] = useState([]);
+    const [projectsList, setProjectsList] = useState([]);
 
-    // useEffect(() => {
-    //     const { ethereum } = window;
-    //     const checkMetamaskAvailability = async () => {
-    //         if (!ethereum) {
-    //             setHaveMetamask(false);
-    //         }
-    //         setHaveMetamask(true);
-    //     };
-    //     checkMetamaskAvailability();
-    // }, []);
+    const [currentContract, setContract] = useState(null);
+    const [currentTitle, setCurrentTitle] =useState(null);
+    const [currentImage, setCurrentImage] =useState(null);
+    const [currentDesc, setCurrentDesc] =useState(null);
+
 
 ////// connect to MetaMask.
     const connectWallet = async () => {         // function that connect to METAMASK account, activated when clicking on 'connect'.
@@ -95,125 +92,78 @@ export default function App() {
 ////// Contract Deployment.
     // IMPORTANT: async / await is essential to get values instead of Promise.
     const backProject = async () => {
-        const res = await contract.methods.back().send({from: address, value: ethers.utils.parseEther("0.0001"), gasLimit:100000});
+        const res = await currentContract.methods.back().send({from: address, value: ethers.utils.parseEther("0.0001"), gasLimit:100000});
         return res;
     }
 
     const vote = async () => {
-        const res = await contract.methods.voteOnMilestone(voted).send({from: address});
+        const res = await currentContract.methods.voteOnMilestone(voted).send({from: address});
         return res;
     }
 
     const recountMilestone = async () => {
-        const res = await contract.methods.recountMilestone().send({from: address});
+        const res = await currentContract.methods.recountMilestone().send({from: address});
         return res;
     }
 
     const backingPhaseEnd = async () => {
-        const res = await contract.methods.backingPhaseEnd().send({from: address});
+        const res = await currentContract.methods.backingPhaseEnd().send({from: address});
         return res;
     }
 
     const withdrawProject = async () => {
-        const wid = await contract.methods.withdraw().call();
+        const wid = await currentContract.methods.withdraw().call();
         return wid;
     }
 
     const getMilestoneVal = async () => {
-        const miles = await contract.methods.getMilestone().call();
+        const miles = await currentContract.methods.getMilestone().call();
         return miles;
     }
 
     const getTotalBackingRequiredVal = async () => {
-        const val = await contract.methods.getTotalBackingRequired().call();
+        const val = await currentContract.methods.getTotalBackingRequired().call();
         return val;
     }
 
     const getBackingVal = async () => {
-        const val = await contract.methods.getTotalBacking().call();
+        const val = await currentContract.methods.getTotalBacking().call();
+        return val;
+    }
+
+    const getProjects = async() => {
+      var contractList =[]
+      var projectList = []
+      const count = await listContract.methods.getCount().call();
+      for(var i = 0; i < count; i++){
+        const address = await listContract.methods.getProject(i).call();
+        const projectContract = new web3.eth.Contract(CONTRACT_ABI, address);
+        contractList.push(projectContract)
+        const title = await projectContract.methods.getTitle().call();
+        const description = await projectContract.methods.getDescription().call();
+        const image = await projectContract.methods.getImage().call();
+        projectList.push({'id':i, 'title':title, 'description': description,
+        'image': image, 'address':address});
+      }
+      setProjectsList(projectList);
+      setAddressList(contractList);
     }
     // const getData = async () => {
-    //     const res = await contract.methods.get().call();
-    //     return res;
+    //     //const count = await listContract.methods.getCount().call();
+    //     const projectList = queriedProductList;//await listContract.methods.getProject().call(count);
+    //     setContractList(projectList);
+    //     // for(let i = 0; i < projectList.length; i++){
+    //     //   setContractList(projectList[i]);
+    //     //   console.log(contractList);
+    //     // }
+    //     //setContractList(projectList);
     // }
-
-
-//// history recording.
-    // const RecordOverFlow = () => {
-    //     if (recordLen > maxRecordLen){
-    //         let outlierNum = recordLen - maxRecordLen;
-    //         setHistoryRecord(current => current.splice(1, outlierNum));
-    //         setRecordLen(maxRecordLen);
-    //     }
-    // }
-    //
-    // const RecordPush = (opr, val, detail) => {
-    //     let stat = 1;
-    //     let cost = 0;
-    //     if (val.length === 0){
-    //         val = 'NA';
-    //         cost = 'NA';
-    //         stat = 0;
-    //     }
-    //     else{
-    //         if (opr === 'get'){
-    //             cost = 0;
-    //             stat = 1;
-    //         }
-    //         else{
-    //             if (detail === 'null'){
-    //                 setStoredPending(false);
-    //                 setStoredDone(true);
-    //                 console.log('Rejected');
-    //                 cost = 'NA';
-    //                 stat = 2;
-    //             }
-    //             else{
-    //                 setStoredDone(true);
-    //                 console.log('Done');
-    //                 console.log(detail);    // show the details of transaction.
-    //                 cost = detail.gasUsed;
-    //                 stat = 1;
-    //             }
-    //         }
-    //     }
-    //
-    //     const newRecord = {
-    //         id: recordLen + 1,
-    //         address: address,
-    //         operation: opr,
-    //         value: val,
-    //         cost: cost,
-    //         status: stat
-    //     };
-    //     if (recordLen === 0){
-    //         setHistoryRecord([newRecord, newRecord]);
-    //     }
-    //     else{
-    //         setHistoryRecord(current => [...current, newRecord]);
-    //     }
-    //     setRecordLen(recordLen + 1);
-    //
-    //     if (recordLen > maxRecordLen){
-    //         RecordOverFlow();
-    //     }
-    // }
-    //
-    // const RecordOverFlow = () => {
-    //     if (recordLen > maxRecordLen){
-    //         let outlierNum = recordLen - maxRecordLen;
-    //         setHistoryRecord(current => current.splice(1, outlierNum));
-    //         setRecordLen(maxRecordLen);
-    //     }
-    // }
-
 
 /// Let us allow the user to back a project
     const backProjectUpdate = async () => {
               try{
                   const detail = await backProject();   // contract deployed.
                   // RecordPush('back', project, address);      // recorded
-                  setIsBacked(true);
               }
               catch(err){
                   console.log(CONTRACT_ADDRESS);
@@ -251,7 +201,6 @@ export default function App() {
     const withdrawProjectUpdate= async () => {
               try{
                   const detail = await withdrawProject();
-                  setIsBacked(false);
               }
               catch(err){
                   console.log(err);
@@ -269,30 +218,25 @@ export default function App() {
             }
     }
 
-    useEffect(() => {
-      console.log("executed only once!");
-      getMilestone();
-    }, [""]);
-
 
     const recalculateDisableButtons = async() => {
-        const miles = await contract.methods.getMilestone().call();
-        const endtime = await contract.methods.getBackingEndTime().call();
+        const miles = await currentContract.methods.getMilestone().call();
+        const endtime = await currentContract.methods.getBackingEndTime().call();
 
         const currentBlock = await provider.getBlockNumber();
         const blockTimestamp = (await provider.getBlock(currentBlock)).timestamp;
 
         setDisableEndBackingPhaseButton(!(miles == 1 && blockTimestamp > endtime));
 
-        const milestoneAmount = await contract.methods.getMilestoneAmount().call();
+        const milestoneAmount = await currentContract.methods.getMilestoneAmount().call();
 
-        const payoutPercentageMilestone = await contract.methods.getPayoutPercentage(miles).call();
+        const payoutPercentageMilestone = await currentContract.methods.getPayoutPercentage(miles).call();
 
         var maxVotesI;
         var maxVotesNum;
         for(var i = 0; i < milestoneAmount; i++){
-            const votes = await contract.methods.getVotesPerMilestone(i).call();
-            const payoutPercentageI = await contract.methods.getPayoutPercentage(i).call();
+            const votes = await currentContract.methods.getVotesPerMilestone(i).call();
+            const payoutPercentageI = await currentContract.methods.getPayoutPercentage(i).call();
             if((payoutPercentageI >= payoutPercentageMilestone) && (i != 1) && ((i > miles) || (i == 0))){
                 if(votes > maxVotesNum){
                     maxVotesI = i;
@@ -305,50 +249,25 @@ export default function App() {
         setDisableRecountMilestoneButton(!(miles > 1 && miles != milestone));
     }
 
+    const updateProjectContract = async(address) => {
+      const contract = new web3.eth.Contract(CONTRACT_ABI, address);
+      setContract(contract);
+      const title = await contract.methods.getTitle().call();
+      const description = await contract.methods.getDescription().call();
+      const image = await contract.methods.getImage().call();
+      setCurrentTitle(title);
+      setCurrentDesc(description);
+      setCurrentImage(image);
+      navigate('/InterfaceDemo/getbacker');
 
-////// store and get value.
-    // const storedValUpdate = async () => {
-    //     const inputVal = document.getElementById('inputVal').value;
-    //     setStoredPending(false);
-    //     setStoredDone(false);
-    //
-    //     if (inputVal.length === 0) {
-    //         const detail = 'null';
-    //         RecordPush('store', inputVal, detail);
-    //     }
-    //     else {
-    //         setStoredPending(true);
-    //         setStoredVal(inputVal);
-    //
-    //         try{
-    //             const detail = await storeData(inputVal);   // contract deployed.
-    //             RecordPush('store', inputVal, detail);      // recorded.
-    //         }
-    //         catch(err){
-    //             const detail = 'null';                      // no detail info.
-    //             RecordPush('store', inputVal, detail);      // recorded.
-    //         }
-    //     }
-    // }
-    //
-    // const showValUpdate = async () => {
-    //     const ans = await getData();
-    //     setStoredPending(false);
-    //     setStoredDone(false);
-    //
-    //     setShowVal(ans);
-    //     RecordPush('get', ans);
-    // }
-
+    }
 
 ////// display functions.
     const ProfileDisplay = () => {
         return (
             <Profile
-                isConnected = {isConnected}
-                address = {address}
-                networkType = {network}
-                balance = {balance}
+              projects = {projectsList}
+              updateProject = {updateProjectContract}
             />
         )
     }
@@ -381,22 +300,30 @@ export default function App() {
             <GetBacker
                 isConnected = {isConnected}
                 address={address}
-                isBacked={isBacked}
-                storeValHandle={backProjectUpdate}
-                getMilestone={getMilestone}
+                getMilestone={getMilestone} //function
                 milestone={milestoneVal}
-                withdrawVal={withdrawProjectUpdate}
-                voteHandle={voteUpdate}
+                withdrawVal={withdrawProjectUpdate} //function
+                storeValHandle={backProjectUpdate} //function
+                voteHandle={voteUpdate} //function
+                recountMilestoneUpdate={recountMilestoneUpdate} //function
+                backingPhaseEndUpdate={backingPhaseEndUpdate} //function
+                title={currentTitle}
+                image={currentImage}
+                desc={currentDesc}
                 voted={voted}
                 setVoted={setVoted}
-                recountMilestoneUpdate={recountMilestoneUpdate}
-                backingPhaseEndUpdate={backingPhaseEndUpdate}
                 disableEndBackingPhaseButton={disableEndBackingPhaseButton}
                 disableRecountMilestoneButton={disableRecountMilestoneButton}
+
 
             />
         )
     }
+
+    useEffect(() => {
+      getMilestone();
+      getProjects();
+    }, [""]);
 
 
     return (
