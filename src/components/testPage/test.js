@@ -24,30 +24,30 @@ function Testing() {
             </h1>
             <br />
             <Button 
-            className="btn btn-light me-2"
+            className="btn btn-info me-2"
             onClick ={()=>handleClick("/InterfaceDemo/createProject")}>
                 <span>Add Project</span>
             </Button>
-            <Button className="btn btn-light me-2"
+            <Button className="btn btn-info me-2"
             onClick ={()=>handleClick("/InterfaceDemo/getbacker")}>
                 <span>Back Projects</span>
             </Button>
             <br />
             <div class="card-group container">
-                <div class="card border-success mb-3">
+                <div class="card text-white bg-info mb-3">
                     <div class="card-header">3</div>
                     <div class="card-body text-success">
                         <h5 class="card-title">Projects</h5>
                     </div>
                 </div>
-                <div class="card border-success mb-3">
+                <div class="card text-white bg-info mb-3">
                     <div class="card-header">2</div>
                     <div class="card-body text-success">
                         <h5 class="card-title">Backed</h5>
                     </div>
                 </div>
-                <div class="card border-success mb-3">
-                    <div class="card-header">0.238783</div>
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-header">0.238783 ETH</div>
                     <div class="card-body text-success">
                         <h5 class="card-title">Donated</h5>
                     </div>

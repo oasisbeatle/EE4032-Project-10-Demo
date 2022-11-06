@@ -84,7 +84,7 @@ export default function App() {
             setBalance(bal);
             setIsConnected(true);
 
-            navigate('/InterfaceDemo/profile');
+            navigate('/InterfaceDemo/testing');
         }
         catch (error){
             setIsConnected(false);

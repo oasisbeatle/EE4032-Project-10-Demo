@@ -18,16 +18,16 @@
     --RejectedColor: #EF7788;
 }
 
-a:link { text-decoration: none; color: #61DBFB;}
+a:link { text-decoration: none; color: black;}
 
 
-a:visited { text-decoration: none; color: #61DBFB;}
+a:visited { text-decoration: none; color: black;}
 
 
-a:hover { text-decoration: none; color: #61DBFB;}
+a:hover { text-decoration: none; color: white;}
 
 
-a:active { text-decoration: none; color: #61DBFB; }
+a:active { text-decoration: none; color: black; }
 
 
 .login-logo{
@@ -48,12 +48,12 @@ a:active { text-decoration: none; color: #61DBFB; }
 }
 
 .global-link{
-    color: #61dafb;
+    color: black;
 }
 
 .global-btn{
     font-size: 20px;
-    background-color: #61dafb;
+    background-color: black;
 }
 
 .global-footer{
@@ -67,4 +67,7 @@ a:active { text-decoration: none; color: #61DBFB; }
     text-align: center;
     padding-top: 40px;
     color: var(--MessageColorUncovered);
+}
+.navBarBackground{
+  background-color: rgba(131,157,156) ;
 }

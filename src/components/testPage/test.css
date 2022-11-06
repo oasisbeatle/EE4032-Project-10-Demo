@@ -38,11 +38,11 @@
     transition: all 1s;
 }
 .btn {
-    border: 1px solid #2ecc71;
-    color: black;
+    border: 3px solid lightskyblue;
+    color: white;
 }
 .btn:hover {
-    color: black;
+    color: white;
 }
 .btn::after {
     content: '';
@@ -57,7 +57,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    background: #2ecc71;
+    background: lightskyblue;
 }
 .btn:hover:after, .btn:active:after {
     width: 100%;
@@ -66,10 +66,10 @@
     color: #070707;
 }
 .stats{
-    color: #2ecc71;
+    color: lightskyblue;
 }
 .text-green-600{
-    color: #2ecc71;
+    color: lightskyblue;
 }
 .card{
     width: 5vw;
@@ -82,10 +82,11 @@
     word-wrap: break-word;
 }
 .card-header{
-    color: #2ecc71;
+    color: white;
 }
 .overlap{
-    background-image:linear-gradient(to right, white,#2ecc71);
+    background-image: url('../../images/pexels-damir-mijailovic-5507510.jpg');
+    /* background-image:linear-gradient(to right, white,#2ecc71); */
     position: relative;
     height:100vh;
 }

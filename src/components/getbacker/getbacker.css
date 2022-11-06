@@ -83,3 +83,6 @@ ul#horizontal-list {
 	ul#horizontal-list li {
     display: inline;
 	}
+.HomePageBackground{
+  background-image: url('../../images/pexels-damir-mijailovic-5507510.jpg');
+}

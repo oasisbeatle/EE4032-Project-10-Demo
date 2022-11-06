@@ -31,6 +31,9 @@ export default function Profile(props){
                     </p>
                 </div>
             </div>
+            <div>
+                <p>Projects You Have Backed!</p>
+            </div>
         </div>
         </div>
 
