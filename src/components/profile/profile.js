@@ -19,14 +19,13 @@ export default function Profile(props){
     const ListItems = (card, index) => {
       return(
         <div>
-        <Card key={index} className="card">
-          <Card.Img variant="left" src={card.image} className="backimage"/>
+        <Card key={index} className="card" bg="info" >
+          <Card.Img variant="left" src={card.image} className="backimage" />
           <Card.Body>
           <Card.Title> {card.title} </Card.Title>
           <Card.Text> {card.description} </Card.Text>
-          <br></br>
           <div>
-           <Button variant="primary" data-index={card.address} onClick={handler}>
+           <Button data-index={card.address} onClick={handler}>
             Go To Product
            </Button>
            </div>
@@ -45,9 +44,11 @@ export default function Profile(props){
   };
 
   return (
-      <div className="profile-background">
+      <div>
         <GlobalToolBar/>
+        <div className='profile-background'>
         <RenderCards/>
+        </div>
       </div>
 )
 }

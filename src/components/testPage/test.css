@@ -39,7 +39,8 @@
 }
 .btn {
     border: 3px solid lightskyblue;
-    color: white;
+    color: black;
+
 }
 .btn:hover {
     color: white;

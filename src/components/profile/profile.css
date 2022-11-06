@@ -3,39 +3,40 @@
 .profile-background{
     background-size: 100%;
     background-position-x: center;
-    height: 100%;
+    height: 130vh;
     width: 100%;
     flex-direction: column;
     display: flex;
-    align-items: center;
     justify-content: center;
     background-image: url('../../images/pexels-damir-mijailovic-5507510.jpg');
 }
 
-.profile{
+/* .profile{
     height: 27.5%;
     width: 64%;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+} */
 
 
 .card{
-  height: 200px !important;
-  width: 70% !important;
+  height: 230px !important;
+  width: 90% !important;
   flex-direction: row !important;
-  border: 1px solid #BEBEBE !important;;
+  opacity: 0.79 !important;
+  border-radius: 25px !important;
+
 
 }
 
 .cardContainer{
   margin: auto;
-  padding-top:200px;
+  padding-top:50px;
 }
 
 .backimage{
-  width: 20%;
-  border: 0.75px solid #BEBEBE;
+  width: 190px;
+  height: 229px;
+  border-radius: 25px !important;
 }
-
