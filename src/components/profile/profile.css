@@ -5,6 +5,11 @@
     background-position-x: center;
     height: 100%;
     width: 100%;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../../images/pexels-damir-mijailovic-5507510.jpg');
 }
 
 .profile{
@@ -33,3 +38,4 @@
   width: 20%;
   border: 0.75px solid #BEBEBE;
 }
+

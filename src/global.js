@@ -16,31 +16,35 @@ export const LinkColor = '#61dafb';
 export const TopbarColor = '#61dafb';
 
 export const GlobalToolBar = () => {
-    return (
-      <Navbar bg='dark' variant='light' expand='lg'>
-        <Container>
+  return (
+    <Navbar className="navBarBackground">
+      {/* <Navbar bg='dark' variant='dark' expand='lg' className = "navBarBackground"> */}
+      <Container>
         <Navbar.Brand>
-          <Link to = "/InterfaceDemo">
-            <img src = {logo} className = "login-logo" alt = "logo" />
+          <Link to="/InterfaceDemo">
+            <img src={logo} className="login-logo" alt="logo" />
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link>
-              <Link to = "/InterfaceDemo/profile">Profile</Link>
+              <Link to="/InterfaceDemo/testing">Home</Link>
             </Nav.Link>
             <Nav.Link>
-              <Link to = "/InterfaceDemo/getbacker">Get Backer</Link>
+              <Link to="/InterfaceDemo/profile">Profile</Link>
             </Nav.Link>
             <Nav.Link>
-              <Link to = "/InterfaceDemo/createProject">Create Project</Link>
+              <Link to="/InterfaceDemo/getbacker">Get Backer</Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/InterfaceDemo/createProject">Create Project</Link>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    )
+      </Container>
+    </Navbar>
+  )
 }
 
 

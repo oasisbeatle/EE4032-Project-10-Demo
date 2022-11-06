@@ -1,7 +1,14 @@
 @import "../../global.css";
 
-.basic{
-
+.card_container{
+  border-color: black;
+  display: flex;
+  align-items: flex-start;
+  background-color: lightskyblue;
+  padding: 0.5rem 0.5rem;
+}
+h5{
+  color: black;
 }
 .carousel{
     background-color: var(--BackgroundCovered);
@@ -60,4 +67,13 @@ body {
 
 label {
   margin: 0 1rem 0 0.25rem;
+}
+.createProjectBackground{
+  background-image: url('../../images/pexels-damir-mijailovic-5507510.jpg');
+}
+.s{
+  width: 50vw;
+  display: block;
+  margin-left: auto;
+  margin-right: auto
 }

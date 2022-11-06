@@ -1,0 +1,92 @@
+.btn {
+    min-width: 20vw;
+    min-height: 4vw;
+}
+
+.container4 {
+    position: relative;
+}
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+
+.fill-button{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+}
+
+.btn {
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    background: none;
+    cursor: pointer;
+    display: inline-block;
+    margin: 15px 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    outline: none;
+    position: relative;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
+}
+.btn {
+    border: 3px solid lightskyblue;
+    color: white;
+}
+.btn:hover {
+    color: white;
+}
+.btn::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+.btn:after {
+    width: 0%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: lightskyblue;
+}
+.btn:hover:after, .btn:active:after {
+    width: 100%;
+}
+.card-title{
+    color: #070707;
+}
+.stats{
+    color: lightskyblue;
+}
+.text-green-600{
+    color: lightskyblue;
+}
+.card{
+    width: 5vw;
+    height: 7vw;
+}
+.card-group{
+    padding-top: 5rem;
+}
+.card-title{
+    word-wrap: break-word;
+}
+.card-header{
+    color: white;
+}
+.overlap{
+    background-image: url('../../images/pexels-damir-mijailovic-5507510.jpg');
+    /* background-image:linear-gradient(to right, white,#2ecc71); */
+    position: relative;
+    height:100vh;
+}

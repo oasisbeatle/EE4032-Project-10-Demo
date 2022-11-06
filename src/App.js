@@ -11,9 +11,10 @@ import Login from "./components/login/login";
 import Profile from "./components/profile/profile";
 import Storage from "./components/storage/storage";
 import CreateProject from "./components/createProject/createProject";
-import GetBacker from "./components/getbacker/getbacker";
+import GetBacker from "./components/getbacker/getbacker"; 
 import { CONTRACT_ABI, CONTRACT_ADDRESS, LIST_CONTRACT_ADDRESS, LIST_CONTRACT_ABI} from "./contracts/config";
 import { ListGroup } from "react-bootstrap";
+import Testing from "./components/testPage/test";
 
 export default function App() {
     const [haveMetamask, setHaveMetamask] = useState(true);     // check if the browser has MetaMask installed.
@@ -80,7 +81,7 @@ export default function App() {
             setBalance(bal);
             setIsConnected(true);
 
-            navigate('/InterfaceDemo/profile');
+            navigate('/InterfaceDemo/testing');
         }
         catch (error){
             setIsConnected(false);
@@ -270,6 +271,12 @@ export default function App() {
             />
         )
     }
+    const HomePageDisplay = () => {
+        return (
+            <homePage
+            />
+        )
+    }
 
     const StorageDisplay = () => {
         return (
@@ -328,6 +335,7 @@ export default function App() {
                     <Route path = "/InterfaceDemo/storage" element = {<StorageDisplay/>}></Route>
                     <Route path = "/InterfaceDemo/createProject" element = {<CreateProjectDispay/>}></Route>
                     <Route path = "/InterfaceDemo/getbacker" element = {<BackerDisplay />}></Route>
+                    <Route path = "/InterfaceDemo/testing" element = {<Testing/>}></Route>
                 </Routes>
             </div>
         // </BrowserRouter>

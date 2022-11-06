@@ -92,22 +92,24 @@ export default function GetBacker(props){
           <div>
             <label htmlFor="Phase">Phase</label>
             <input type="number" value={props.voted} onChange={handleChangeVoteNum} className="vote"/>
-            <button onClick={props.voteHandle} className="voteButton" type="button">
+            <button onClick={props.voteHandle} className=" btn btn-info me-2 voteButton" type="button">
                       Vote
             </button>
           </div>
           <br></br>
+          <div class="btn-group" role="group" aria-label="Basic example">
           <div>
-               <button className="refund" type="button" onClick={props.withdrawVal}>
+               <button className=" btn btn-info me-2 refund " type="button" onClick={props.withdrawVal}>
                         Refund
                </button>
           </div>
           <br></br>
           <div>
-                <button className="refund" type="button" onClick={props.getMilestone}>
+                <button className=" btn btn-info me-2 refund" type="button" onClick={props.getMilestone}>
                             Update
                 </button>
           </div>
+        </div>
       </div>
       )
   }
@@ -126,7 +128,26 @@ export default function GetBacker(props){
 
   const HomePage = () => {
     return(
-      <div>
+      <div className="HomePageBackground">
+          {/* <div class="table">
+            <ul id="horizontal-list">
+              <li>
+                <span className = "global-message">Projects</span>
+                <span className = "global-message">1</span>
+                <br></br>
+              </li>
+              <li>
+                <span className = "global-message">Backing</span>
+                <span className = "global-message">1</span>
+                <br></br>
+              </li>
+              <li>
+                <span className = "global-message">Donated</span>
+                <span className = "global-message">{props.address} ETH</span>
+                <br></br>
+              </li>
+            </ul>
+          </div> */}
           <br></br>
           <h1>{props.title}</h1>
           <img src = {props.image} className = "image" alt = "prod" />
