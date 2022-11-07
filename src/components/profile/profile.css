@@ -3,7 +3,7 @@
 .profile-background{
     background-size: 100%;
     background-position-x: center;
-    height: 130vh;
+    height: 200%;
     width: 100%;
     flex-direction: column;
     display: flex;
@@ -32,7 +32,7 @@
 
 .cardContainer{
   margin: auto;
-  padding-top:50px;
+  padding-top:150px;
 }
 
 .backimage{
