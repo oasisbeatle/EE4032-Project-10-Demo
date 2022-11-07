@@ -1,7 +1,7 @@
-.btn {
+/* .btn {
     min-width: 20vw;
     min-height: 4vw;
-}
+} */
 
 .container4 {
     position: relative;
@@ -39,7 +39,7 @@
 }
 .btn {
     border: 3px solid lightskyblue;
-    color: black;
+    color: ;
 
 }
 .btn:hover {
@@ -71,23 +71,4 @@
 }
 .text-green-600{
     color: lightskyblue;
-}
-.card{
-    width: 5vw;
-    height: 7vw;
-}
-.card-group{
-    padding-top: 5rem;
-}
-.card-title{
-    word-wrap: break-word;
-}
-.card-header{
-    color: white;
-}
-.overlap{
-    background-image: url('../../images/pexels-damir-mijailovic-5507510.jpg');
-    /* background-image:linear-gradient(to right, white,#2ecc71); */
-    position: relative;
-    height:100vh;
 }

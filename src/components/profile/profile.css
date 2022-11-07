@@ -11,32 +11,38 @@
     background-image: url('../../images/pexels-damir-mijailovic-5507510.jpg');
 }
 
-/* .profile{
+
+.profile{
     height: 27.5%;
     width: 64%;
     display: flex;
     align-items: center;
     justify-content: center;
-} */
+}
 
 
-.card{
-  height: 230px !important;
-  width: 90% !important;
-  flex-direction: row !important;
+.ccard{
+  height: 400px !important;
+  width: 500px !important;;
   opacity: 0.79 !important;
   border-radius: 25px !important;
-
-
+  align-items: center !important;
+  justify-content: center !important;
+  margin-top: 25px !important;
 }
 
 .cardContainer{
-  margin: auto;
-  padding-top:150px;
+
 }
 
 .backimage{
-  width: 190px;
-  height: 229px;
+  height: 200px !important;
+  width: 200px !important;
   border-radius: 25px !important;
+  position: relative;
+}
+
+.card-body{
+  align-items: center;
+  justify-content: center;
 }
