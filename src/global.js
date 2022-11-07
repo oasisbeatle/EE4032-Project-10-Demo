@@ -4,7 +4,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 import './global.css';
-import logo from './images/logo.svg';
+import logo from './images/logo2.png';
+import METAMASK from './images/MetaMask_Fox.svg';
 
 export const BackgroundCovered = '#282c34';
 export const BackgroundUncovered = 'white';
@@ -41,6 +42,7 @@ export const GlobalToolBar = () => {
               <Link to="/InterfaceDemo/createProject">Create Project</Link>
             </Nav.Link>
           </Nav>
+          <img src={METAMASK} className="meta-logo" alt="logo" />
         </Navbar.Collapse>
       </Container>
     </Navbar>

@@ -24,7 +24,7 @@ export default function Profile(props){
     const ListItems = (card, index) => {
       return(
         <Col>
-        <Card key={index} className="ccard" bg="info" >
+        <Card key={index} className="ccard" bg="light" >
           <Card.Img variant="top" src={METAMASK} className="backimage"/>
           <Card.Body className="card-body">
           <Card.Title className="card-title" > {card.title} </Card.Title>
@@ -47,7 +47,7 @@ export default function Profile(props){
   };
 
   return (
-      <div>
+      <div className="profile-background">
           <GlobalToolBar/>
           <RenderCards/>
       </div>

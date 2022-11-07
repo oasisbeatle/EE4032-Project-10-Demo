@@ -69,5 +69,26 @@ a:active { text-decoration: none; color: black; }
     color: var(--MessageColorUncovered);
 }
 .navBarBackground{
-  background-color: rgba(131,157,156) ;
+  background-color: rgba(256, 256, 256, 0.6);
+}
+
+.meta-logo{
+  height: 40px;
+  opacity: 0.7;
+
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .login-logo {
+      animation: login-logo-spin infinite 20s linear;
+    }
+}
+
+@keyframes login-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
 }
