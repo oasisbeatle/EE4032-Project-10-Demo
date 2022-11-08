@@ -12,7 +12,6 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-
 export default function Profile(props){
   const handler = (event) => {
     props.updateProject(event.currentTarget.dataset.index);
@@ -48,8 +47,14 @@ export default function Profile(props){
 
   return (
       <div>
-          <GlobalToolBar/>
-          <RenderCards/>
+          {GlobalToolBar(props.address)}
+          <div>
+            {
+              props.isConnected ?
+                <RenderCards/>:
+                <Navigate to='/InterfaceDemo' />
+            }
+          </div>
       </div>
 )
 }

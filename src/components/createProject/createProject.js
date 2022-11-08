@@ -184,7 +184,7 @@ export default function CreateProject(props) {
 
   return (
     <div>
-      <GlobalToolBar />
+      {GlobalToolBar(props.address)}
       <div>
         {
           props.isConnected ?
