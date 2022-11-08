@@ -11,10 +11,12 @@ import Login from "./components/login/login";
 import Profile from "./components/profile/profile";
 import Storage from "./components/storage/storage";
 import CreateProject from "./components/createProject/createProject";
-import GetBacker from "./components/getbacker/getbacker"; 
+import GetBacker from "./components/getbacker/getbacker";
+import Add from "./components/projects/add";
 import { CONTRACT_ABI, CONTRACT_ADDRESS, LIST_CONTRACT_ADDRESS, LIST_CONTRACT_ABI} from "./contracts/config";
 import { ListGroup } from "react-bootstrap";
 import Testing from "./components/testPage/test";
+
 
 export default function App() {
     const [haveMetamask, setHaveMetamask] = useState(true);     // check if the browser has MetaMask installed.
@@ -52,6 +54,7 @@ export default function App() {
     const [currentTitle, setCurrentTitle] =useState(null);
     const [currentImage, setCurrentImage] =useState(null);
     const [currentDesc, setCurrentDesc] =useState(null);
+
 
 
 ////// connect to MetaMask.
@@ -271,9 +274,10 @@ export default function App() {
             />
         )
     }
-    const HomePageDisplay = () => {
+    const AddressDisplay = () => {
         return (
-            <homePage
+            <Add
+              address={address}
             />
         )
     }
@@ -314,8 +318,6 @@ export default function App() {
                 setVoted={setVoted}
                 disableEndBackingPhaseButton={disableEndBackingPhaseButton}
                 disableRecountMilestoneButton={disableRecountMilestoneButton}
-
-
             />
         )
     }
@@ -336,6 +338,7 @@ export default function App() {
                     <Route path = "/InterfaceDemo/createProject" element = {<CreateProjectDispay/>}></Route>
                     <Route path = "/InterfaceDemo/getbacker" element = {<BackerDisplay />}></Route>
                     <Route path = "/InterfaceDemo/testing" element = {<Testing/>}></Route>
+                    <Route path = "/InterfaceDemo/add" element = {<AddressDisplay/>}></Route>
                 </Routes>
             </div>
         // </BrowserRouter>

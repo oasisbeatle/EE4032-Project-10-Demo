@@ -2,12 +2,15 @@ import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom"
 
 
+
 import "./profile.css";
 import "../../global.css";
 import { GlobalToolBar } from "../../global";
 import METAMASK from '../../images/MetaMask_Fox.svg';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 
 export default function Profile(props){
@@ -15,40 +18,38 @@ export default function Profile(props){
     props.updateProject(event.currentTarget.dataset.index);
   }
 
+  const columnsPerRow = 3
+
   function RenderCards(){
     const ListItems = (card, index) => {
       return(
-        <div>
-        <Card key={index} className="card" bg="info" >
-          <Card.Img variant="left" src={card.image} className="backimage" />
-          <Card.Body>
-          <Card.Title> {card.title} </Card.Title>
-          <Card.Text> {card.description} </Card.Text>
-          <div>
+        <Col>
+        <Card key={index} className="ccard" bg="light" >
+          <Card.Img variant="top" src={METAMASK} className="backimage"/>
+          <Card.Body className="card-body">
+          <Card.Title className="card-title" > {card.title} </Card.Title>
            <Button data-index={card.address} onClick={handler}>
             Go To Product
            </Button>
-           </div>
           </Card.Body>
         </Card>
-        <br></br>
-        </div>
+        </Col>
       );
     };
 
     return(
       <div className="cardContainer">
-        {props.projects.map(ListItems)}
+      <Row xs={1} md={columnsPerRow} className="top-buffer">
+          {props.projects.map(ListItems)}
+      </Row>
       </div>
     );
   };
 
   return (
       <div>
-        <GlobalToolBar/>
-        <div className='profile-background'>
-        <RenderCards/>
-        </div>
+          <GlobalToolBar/>
+          <RenderCards/>
       </div>
 )
 }

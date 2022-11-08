@@ -4,59 +4,94 @@ import "../../global.css";
 import "./test.css";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import { useNavigate } from "react-router-dom";
+import Backed from '../../images/backed.png';
+import Projects from '../../images/projects.png';
+import ETH from '../../images/eth.png';
+import LEAF from '../../images/leaf.png';
 
-function Testing() {
+
+export default function Testing(props) {
     const navigate = useNavigate();
-    function handleClick(path) {
-        navigate(path);
+
+      const handler = (event) => {
+        navigate('../InterfaceDemo/CreateProject');
       }
 
-
-    return <div>
-        <GlobalToolBar />
-        <div className = "overlap">
-            <br></br>
-            <h1>
-                <span>Support Your Favourite Projects On Our</span>
-                <br/>
-                <span className="text-green-600">PLATFORM.</span>
-            </h1>
-            <br/>
-            <Button
-            className="btn btn-info me-2"
-            onClick ={()=>handleClick("/InterfaceDemo/createProject")}>
-                <span>Add Project</span>
-            </Button>
-            <br></br>
-            <br></br>
-            <div class="card-group container">
-                <div class="card text-white bg-info mb-3">
-                    <div class="card-header">3</div>
-                    <div class="card-body text-success">
-                        <h5 class="card-title">Projects</h5>
-                    </div>
-                </div>
-                <div class="card text-white bg-info mb-3">
-                    <div class="card-header">2</div>
-                    <div class="card-body text-success">
-                        <h5 class="card-title">Backed</h5>
-                    </div>
-                </div>
-                <div class="card text-white bg-info mb-3">
-                    <div class="card-header">0.238783 ETH</div>
-                    <div class="card-body text-success">
-                        <h5 class="card-title">Donated</h5>
-                    </div>
-                </div>
-
-            </div>
-
-
+  const InfoCards = () => {
+      return (
+        <div className="card-container">
+        <Row xs={1} md={3}>
+        <Col>
+          <Card className="info-card">
+            <Card.Img variant="top" src={Projects} className="image-logo"/>
+            <Card.Body>
+              <Card.Title>Projects</Card.Title>
+              <br></br>
+              <Card.Text>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card className="info-card">
+            <Card.Img variant="top" src={Backed} className="image-logo"/>
+            <Card.Body>
+              <Card.Title>Backed</Card.Title>
+              <br></br>
+              <Card.Text>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card className="info-card">
+            <Card.Img variant="top" src={ETH} className="image-logo" />
+            <Card.Body>
+              <Card.Title>Contributed</Card.Title>
+              <br></br>
+              <Card.Text>
+                ETH
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        </Row>
         </div>
+        )
+      }
 
-    </div>
+      const AddProject = () => {
+        return(
+          <div className="button-container">
+            <Button className="add-button" variant="light" onClick={handler}>
+                Add Project
+            </Button>
+          </div>
+        )
+      }
 
+    const HeroBanner = () => {
+      return(
+        <div className="hero-banner">
+            <img src={LEAF} className="leaf-logo"/>
+            <h2> In Crowdfunding, We Trust</h2>
+            <h1> GET BACKER. </h1>
+            <br></br>
+          <InfoCards/>
+          <AddProject/>
+        </div>
+      )
+    }
+
+
+    return(
+        <div>
+          <GlobalToolBar/>
+          <HeroBanner/>
+        </div>
+    )
 }
-
-export default Testing;

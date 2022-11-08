@@ -1,42 +1,47 @@
 @import "../../global.css";
 
-.profile-background{
-    background-size: 100%;
-    background-position-x: center;
-    height: 200%;
-    width: 100%;
-    flex-direction: column;
-    display: flex;
-    justify-content: center;
-    background-image: url('../../images/pexels-damir-mijailovic-5507510.jpg');
+html, body{
+    background-color: #3bedb7;
+    height:100%;
 }
 
-/* .profile{
+
+.profile{
     height: 27.5%;
     width: 64%;
     display: flex;
     align-items: center;
     justify-content: center;
-} */
+}
 
 
-.card{
-  height: 230px !important;
-  width: 90% !important;
-  flex-direction: row !important;
+.ccard{
+  height: 300px !important;
+  width: auto !important;;
   opacity: 0.79 !important;
   border-radius: 25px !important;
-
-
+  align-items: center !important;
+  justify-content: center !important;
+  margin-top: 25px !important;
+  display: flex !important;
 }
 
 .cardContainer{
-  margin: auto;
-  padding-top:150px;
+
+}
+
+.row {
+padding:10px 30px;
 }
 
 .backimage{
-  width: 190px;
-  height: 229px;
+  height: 150px !important;
+  width: 150px !important;
   border-radius: 25px !important;
+  position: relative;
+}
+
+.card-body{
+  align-items: center;
+  justify-content: center;
 }
