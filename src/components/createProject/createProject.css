@@ -1,55 +1,52 @@
 @import "../../global.css";
 
-.card_container{
-  border-color: black;
-  display: flex;
-  align-items: flex-start;
-  background-color: lightskyblue;
-  padding: 0.5rem 0.5rem;
-}
-h5{
-  color: black;
-}
-.carousel{
-    background-color: var(--BackgroundCovered);
-    width: 100%;
-    height: 100vh;
+.form-card{
+  height: auto !important;
+  width: auto !important;
+  background: rgba(255,255,255, 0.9);
 }
 
-.home-logo{
-    height: 20vmin;
-    pointer-events: none;
+.submit-button{
+  background-color: turquoise !important;
 }
 
-.carousel-item{
-    width: 100%;
-    height: 90vh;
-    position: relative;
+.custom-form{
+  width: inherit !important;
 }
 
-.card{
-   width: 700px;
-   height: 600px;
-   margin: auto;
-   top: 50%;
-   transform: translate(0%, -50%);
+.width-custom {
+  width: inherit !important;
 }
 
-.image{
-  width: 50%;
-  height: 50%;
+.width-fixed{
+  width: 150px !important;
 }
 
-button {
-  font-size: 1.2rem;
-  padding: 0.625rem 1.25rem;
-  margin-bottom: 1rem;
-  border-radius: 1.25rem;
-  border: 1px solid grey;
-  transition: 0.4s;
+.margin-custom{
+  margin-left: 60px !important;
+  border: 0.0625rem solid #D3D3D3 !important;
 }
 
-input[type='number'] {
+.margin-c1{
+  margin-left: 72px !important;
+  border: 0.0625rem solid #D3D3D3 !important;
+}
+
+.margin-c2{
+  margin-left: 115px !important;
+  border: 0.0625rem solid #D3D3D3 !important;
+}
+
+.margin-c3{
+  margin-left: 130px !important;
+  border: 0.0625rem solid #D3D3D3 !important;
+}
+
+.desc{
+  height: 200px;
+}
+
+/* input[type='number'] {
   padding: 0.5rem 0.5rem;
   font-size: 1rem;
   border: 0.0625rem solid #14171a;
@@ -57,23 +54,10 @@ input[type='number'] {
   background: #fff;
   color: #14171a;
   position: relative;
-}
+} */
 
 body {
   font-size: 100%;
   padding: 0;
   margin: 0;
-}
-
-label {
-  margin: 0 1rem 0 0.25rem;
-}
-.createProjectBackground{
-  background-image: url('../../images/pexels-damir-mijailovic-5507510.jpg');
-}
-.s{
-  width: 50vw;
-  display: block;
-  margin-left: auto;
-  margin-right: auto
 }

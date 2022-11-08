@@ -47,7 +47,7 @@ export default function Profile(props){
   };
 
   return (
-      <div className="profile-background">
+      <div>
           <GlobalToolBar/>
           <RenderCards/>
       </div>

@@ -2,9 +2,10 @@ import { Link } from "react-router-dom";
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Add from "./components/projects/add";
 
 import './global.css';
-import logo from './images/logo2.png';
+import logo from './images/home.png';
 import METAMASK from './images/MetaMask_Fox.svg';
 
 export const BackgroundCovered = '#282c34';
@@ -18,31 +19,32 @@ export const TopbarColor = '#61dafb';
 
 export const GlobalToolBar = () => {
   return (
-    <Navbar className="navBarBackground">
+    <Navbar className="navBarBackground" expand='lg'>
       {/* <Navbar bg='dark' variant='dark' expand='lg' className = "navBarBackground"> */}
       <Container>
         <Navbar.Brand>
-          <Link to="/InterfaceDemo">
-            <img src={logo} className="login-logo" alt="logo" />
+          <Link to="/InterfaceDemo/testing">
+            <img src={logo} className="brand-logo" alt="logo" />
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link>
-              <Link to="/InterfaceDemo/testing">Home</Link>
+              <Link to="/InterfaceDemo/profile">Projects</Link>
             </Nav.Link>
-            <Nav.Link>
-              <Link to="/InterfaceDemo/profile">Profile</Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link to="/InterfaceDemo/getbacker">Get Backer</Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link to="/InterfaceDemo/createProject">Create Project</Link>
-            </Nav.Link>
+          <Nav.Link>
+            <Link to="/InterfaceDemo/createProject">Create Project</Link>
+          </Nav.Link>
           </Nav>
-          <img src={METAMASK} className="meta-logo" alt="logo" />
+          <Nav.Link>
+            <Link to ="/InterfaceDemo">
+            <img src={METAMASK} className="meta-logo" alt="logo" />
+            </Link>
+          </Nav.Link>
+          <Nav.Link>
+            <Link id="address" to="/InterfaceDemo">&nbsp;&nbsp;Address Here</Link>
+          </Nav.Link>
         </Navbar.Collapse>
       </Container>
     </Navbar>

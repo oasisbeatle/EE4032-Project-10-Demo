@@ -1,8 +1,8 @@
 @import "../../global.css";
 
-.profile-background{
+html, body{
     background-color: #3bedb7;
-    height: 100vh;
+    height:100%;
 }
 
 
@@ -17,7 +17,7 @@
 
 .ccard{
   height: 300px !important;
-  width: 400px !important;;
+  width: auto !important;;
   opacity: 0.79 !important;
   border-radius: 25px !important;
   align-items: center !important;
