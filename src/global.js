@@ -17,7 +17,9 @@ export const HighlightColor = 'yellow';
 export const LinkColor = '#61dafb';
 export const TopbarColor = '#61dafb';
 
-export const GlobalToolBar = () => {
+export function GlobalToolBar(address){
+  const linkAddress = "https://goerli.etherscan.io/address/" + address;
+
   return (
     <Navbar className="navBarBackground" expand='lg'>
       {/* <Navbar bg='dark' variant='dark' expand='lg' className = "navBarBackground"> */}
@@ -42,9 +44,7 @@ export const GlobalToolBar = () => {
             <img src={METAMASK} className="meta-logo" alt="logo" />
             </Link>
           </Nav.Link>
-          <Nav.Link>
-            <Link id="address" to="/InterfaceDemo">&nbsp;&nbsp;Address Here</Link>
-          </Nav.Link>
+            <a target="_blank" href={linkAddress}>{address}</a>
         </Navbar.Collapse>
       </Container>
     </Navbar>

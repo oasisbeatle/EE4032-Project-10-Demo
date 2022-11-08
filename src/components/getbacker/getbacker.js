@@ -3,9 +3,11 @@ import {useNavigate} from "react-router-dom";
 import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
+import Card from 'react-bootstrap/Card';
 import {ethers} from 'ethers';
 import Web3 from "web3";
-
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 
 import home from '../../images/home.svg';
@@ -16,7 +18,7 @@ import { GlobalToolBar } from "../../global";
 
 import './getbacker.css';
 import '../../global.css';
-import 'bootstrap/dist/css/bootstrap.css';
+import METAMASK from '../../images/MetaMask_Fox.svg';
 
 export default function GetBacker(props){
   const navigate = useNavigate();
@@ -38,8 +40,13 @@ export default function GetBacker(props){
         </p>
         <br></br>
         <div>
-           <button className="refund" type="button" onClick={props.withdrawVal}>
+           <button className="btn custom-button" type="button" onClick={props.withdrawVal}>
             Refund
+           </button>
+        </div>
+        <div>
+           <button className="btn custom-button" type="button" onClick={props.getMilestone}>
+            Update
            </button>
         </div>
     </div>
@@ -56,25 +63,25 @@ export default function GetBacker(props){
             <div>
                 {/* <input type="number" className="backingAmount" defaultValue={1}/> */}
                     {/* <label htmlFor="donationAmount">GoerliETH</label> */}
-                      <button onClick={props.storeValHandle} className="backing" type="button">
+                      <button onClick={props.storeValHandle} className="btn custom-button" type="button">
                         Back This Product
                       </button>
             </div>
             <br></br>
             <div>
-                 <button className="endBackingPhase" type="button" onClick={props.backingPhaseEndUpdate}>
+                 <button className="btn custom-button" type="button" onClick={props.backingPhaseEndUpdate}>
                           End Backing Phase
                  </button>
             </div>
             <br></br>
             <div>
-                 <button className="recountMilestone" type="button" onClick={props.recountMilestoneUpdate}>
+                 <button className="btn custom-button" type="button" onClick={props.recountMilestoneUpdate}>
                           Recount Milestone
                  </button>
             </div>
             <br></br>
             <div>
-              <button className="refund" type="button" onClick={props.getMilestone}>
+              <button className="btn custom-button" type="button" onClick={props.getMilestone}>
                           Update
               </button>
             </div>
@@ -93,19 +100,19 @@ export default function GetBacker(props){
             <label htmlFor="Phase">Phase</label>
             <input type="number" value={props.voted} onChange={handleChangeVoteNum} className="vote"/>
             </div>
-            <button onClick={props.voteHandle} className=" btn btn-info me-2 voteButton" type="button">
+            <button onClick={props.voteHandle} className=" btn custom-button" type="button">
                       Vote
             </button>
           <br></br>
           <div class="btn-group" role="group" aria-label="Basic example">
           <div>
-               <button className=" btn btn-info me-2 refund " type="button" onClick={props.withdrawVal}>
+               <button className="btn custom-button" type="button" onClick={props.withdrawVal}>
                         Refund
                </button>
           </div>
           <br></br>
           <div>
-                <button className=" btn btn-info me-2 refund" type="button" onClick={props.getMilestone}>
+                <button className=" btn custom-button" type="button" onClick={props.getMilestone}>
                             Update
                 </button>
           </div>
@@ -129,32 +136,12 @@ export default function GetBacker(props){
   const HomePage = () => {
     return(
       <div>
-          {/* <div class="table">
-            <ul id="horizontal-list">
-              <li>
-                <span className = "global-message">Projects</span>
-                <span className = "global-message">1</span>
-                <br></br>
-              </li>
-              <li>
-                <span className = "global-message">Backing</span>
-                <span className = "global-message">1</span>
-                <br></br>
-              </li>
-              <li>
-                <span className = "global-message">Donated</span>
-                <span className = "global-message">{props.address} ETH</span>
-                <br></br>
-              </li>
-            </ul>
-          </div> */}
           <br></br>
           <h1>{props.title}</h1>
           <img src = {props.image} className = "image" alt = "prod" />
           <br></br>
           <br></br>
           <p>{props.desc}</p>
-          <p>Connected Account: {props.address}</p>
           <br></br>
           <div>
             {
@@ -165,47 +152,32 @@ export default function GetBacker(props){
     )
   }
 
-
-//   const carousel = () =>{
-//     return(
-//       <div>
-//         <Carousel className = "carousel" interval={null}>
-//           <Carousel.Item className = "carousel-item">
-//             <img src = {p1} className = "card card--1" alt = "prod" />
-//             <Carousel.Caption>
-//                   <h1> <BackDisplay/></h1>
-//                   <p> <WithdrawDisplay/></p>
-//                   <p> <Badge bg="light" text="dark">Backing Amount: </Badge></p>
-//             </Carousel.Caption>
-//           </Carousel.Item>
-//           <Carousel.Item className = "carousel-item">
-//             <img src = {p2} className = "card card--2" alt = "prod" />
-//             <Carousel.Caption>
-//               <h1> <BackDisplay/></h1>
-//               <p> <WithdrawDisplay/></p>
-//               <p> <Badge bg="light" text="dark">Backing Amount: </Badge></p>
-//             </Carousel.Caption>
-//           </Carousel.Item>
-//           <Carousel.Item className = "carousel-item">
-//             <img src = {p3} className = "card card--3" alt = "prod" />
-//             <Carousel.Caption>
-//               <h1> <BackDisplay/></h1>
-//               <p> <WithdrawDisplay/></p>
-//               <p> <Badge bg="light" text="dark">Backing Amount: </Badge></p>
-//             </Carousel.Caption>
-//           </Carousel.Item>
-//         </Carousel>
-//       </div>
-//   )
-// }
+  const ProductPage = () => {
+    return(
+    <div>
+      <Row xs={1} md={1}>
+        <Col>
+          <Card className="project-card">
+            <Card.Img variant="top" className="image" src={METAMASK}/>
+            <Card.Body>
+              <Card.Title>{props.title}</Card.Title>
+              <Card.Text>{props.desc}</Card.Text>
+              <ChooseBackingState/>
+             </Card.Body>
+           </Card>
+          </Col>
+         </Row>
+      </div>
+    )
+  }
 
   return (
       <div className="HomePageBackground">
-          <GlobalToolBar/>
+          {GlobalToolBar(props.address)}
       <div>
           {
               props.isConnected ?
-              <HomePage/>:
+              <ProductPage/>:
               <Navigate to = '/InterfaceDemo' />
           }
       </div>

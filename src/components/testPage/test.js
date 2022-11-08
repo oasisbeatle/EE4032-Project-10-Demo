@@ -15,10 +15,10 @@ import LEAF from '../../images/leaf.png';
 
 
 export default function Testing(props) {
-    const navigate = useNavigate();
+  const Navigate = useNavigate();
 
       const handler = (event) => {
-        navigate('../InterfaceDemo/CreateProject');
+        Navigate('../InterfaceDemo/CreateProject');
       }
 
   const InfoCards = () => {
@@ -90,8 +90,14 @@ export default function Testing(props) {
 
     return(
         <div>
-          <GlobalToolBar/>
-          <HeroBanner/>
+          {GlobalToolBar(props.address)}
+          <div>
+            {
+              props.isConnected ?
+                <HeroBanner/>:
+                <Navigate to='/InterfaceDemo' />
+            }
+          </div>
         </div>
     )
 }

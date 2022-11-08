@@ -271,20 +271,16 @@ export default function App() {
             <Profile
               projects = {projectsList}
               updateProject = {updateProjectContract}
-            />
-        )
-    }
-    const AddressDisplay = () => {
-        return (
-            <Add
               address={address}
+              isConnected = {isConnected}
             />
         )
     }
-
-    const StorageDisplay = () => {
+    const TestDisplay = () => {
         return (
-            <Storage
+            <Testing
+              address={address}
+              isConnected = {isConnected}
             />
         )
     }
@@ -334,11 +330,9 @@ export default function App() {
                 <Routes>
                     <Route path = "/InterfaceDemo" element = {<Login isHaveMetamask = {haveMetamask} connectTo = {connectWallet} />}></Route>
                     <Route path = "/InterfaceDemo/profile" element = {<ProfileDisplay/>}></Route>
-                    <Route path = "/InterfaceDemo/storage" element = {<StorageDisplay/>}></Route>
                     <Route path = "/InterfaceDemo/createProject" element = {<CreateProjectDispay/>}></Route>
                     <Route path = "/InterfaceDemo/getbacker" element = {<BackerDisplay />}></Route>
-                    <Route path = "/InterfaceDemo/testing" element = {<Testing/>}></Route>
-                    <Route path = "/InterfaceDemo/add" element = {<AddressDisplay/>}></Route>
+                    <Route path = "/InterfaceDemo/testing" element = {<TestDisplay/>}></Route>
                 </Routes>
             </div>
         // </BrowserRouter>

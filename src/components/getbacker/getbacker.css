@@ -3,29 +3,13 @@
 .basic{
 
 }
-.carousel{
-    background-color: var(--BackgroundCovered);
-    width: 100%;
-    height: 100vh;
-}
 
-.home-logo{
-    height: 20vmin;
-    pointer-events: none;
-}
 
-.carousel-item{
-    width: 100%;
-    height: 90vh;
-    position: relative;
-}
-
-.card{
-   width: 800px;
-   height: 600px;
+.project-card{
+   width: auto;
+   height: auto;
    margin: auto;
-   top: 50%;
-   transform: translate(0%, -50%);
+   align-items: center;
 }
 
 .image{
@@ -34,12 +18,10 @@
 }
 
 
-button {
-  font-size: 1.2rem !important;
-  padding: 0.625rem 1.25rem !important;
-  margin-bottom: 1rem !important;
-  border-radius: 1.25rem !important;
-  transition: 0.4s !important;
+.custom-button {
+    border: 3px solid rgb(256,256,256,0.1);
+    color: black;
+    background-color: rgb(64,224,208,0.7);
 }
 
 input[type='number'] {
@@ -83,7 +65,3 @@ ul#horizontal-list {
 	ul#horizontal-list li {
     display: inline;
 	}
-.HomePageBackground{
-  background-image: url('../../images/pexels-damir-mijailovic-5507510.jpg');
-  height: 100vh;
-}
