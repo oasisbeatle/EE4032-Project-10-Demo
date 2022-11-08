@@ -53,96 +53,6 @@ function HomePage(props) {
     })();
   }
 
-  const DeployForm = () =>{
-    return(
-    <div className="width-custom">
-      <form id="deployForm" onSubmit={handleSubmit} className="width-custom">
-
-        <div className="width-custom">
-            <label className= "width-custom">
-              <h5 class="card-title" style ={{color: "black"}}>Title</h5>
-              <br></br>
-              <input type="text" class="form-control custom-form" name="title" value={title} onChange={(e) => { setTitle(e.target.value) }}/>
-            </label>
-        </div>
-
-        <br></br>
-
-
-        <div className="width-custom">
-          <label className="width-custom">
-            <h5 class="card-title" style ={{color: "black"}}>Description</h5>
-            <br></br>
-            <textarea type="text" class="form-control desc" name="description" value={description} onChange={(e) => setDescription(e.target.value)}/>
-          </label>
-        </div>
-
-        <br></br>
-
-        <div className="width-custom">
-          <label className="width-custom">
-            <h5 class="card-title" style ={{color: "black"}}>Image URL</h5>
-            <br></br>
-            <input type="text" class="form-control" name="image" value={URL} onChange={(e) => setURL(e.target.value)}/>
-          </label>
-        </div>
-
-        <br></br>
-
-        <div>
-          <label>
-            <h5 class="card-title" style ={{color: "black"}}>Backing Time(In Seconds)</h5>
-            <br></br>
-            <input type="number" class="form-control width-fixed margin-custom" name="time" value={time} onChange={(e) => setTime(e.target.value)}/>
-          </label>
-        </div>
-
-        <br></br>
-
-        <div>
-          <label>
-            <h5 class="card-title" style ={{color: "black"}}>Backer Value(In Wei)</h5>
-            <br></br>
-            <input type="number" class="form-control width-fixed margin-custom" name="val" value={val} onChange={(e) => setVal(e.target.value)}/>
-          </label>
-        </div>
-
-        <br></br>
-
-        <div>
-          <label>
-            <h5 class="card-title" style ={{color: "black"}}>Total Backing Required(In Wei)</h5>
-            <br></br>
-            <input type="number" class="form-control width-fixed margin-c1" name="tot" value={tot} onChange={(e) => setTot(e.target.value)}/>
-          </label>
-        </div>
-
-        <br></br>
-
-        <div>
-          <label>
-            <h5 class="card-title" style ={{color: "black"}}>First Milestone Payout Percentage(in %)</h5>
-            <br></br>
-            <input type="number" name="p1" placeholder="Example: 45" class="form-control width-fixed margin-c2"value={per1} onChange={(e) => setPer1(e.target.value)}/>
-          </label>
-        </div>
-
-        <br></br>
-
-        <div>
-          <label>
-            <h5 class="card-title" style ={{color: "black"}}>Second Milestone Payout Percentage(in %)</h5>
-            <br></br>
-            <input type="number" placeholder="Example: 5" class="form-control width-fixed margin-c3"name="p2" value={per2} onChange={(e) => setPer2(e.target.value)}/>
-          </label>
-        </div>
-
-      </form>
-    </div>
-  )
-
-  }
-
   if (pageState == 0) {
     return (
       <div>
@@ -154,7 +64,88 @@ function HomePage(props) {
                   <Card.Title> <h1>Create A Crowd Funding Project.</h1> </Card.Title>
                   <br></br>
                   <Card.Text className="width-custom">
-                    <DeployForm/>
+                  <form id="deployForm" onSubmit={handleSubmit} className="width-custom">
+
+                  <div className="width-custom">
+                      <label className= "width-custom">
+                        <h5 class="card-title" style ={{color: "black"}}>Title</h5>
+                        <br></br>
+                        <input type="text" class="form-control custom-form" name="title" value={title} onChange={(e) => { setTitle(e.target.value) }}/>
+                      </label>
+                  </div>
+
+                  <br></br>
+
+
+                  <div className="width-custom">
+                    <label className="width-custom">
+                      <h5 class="card-title" style ={{color: "black"}}>Description</h5>
+                      <br></br>
+                      <textarea type="text" class="form-control desc" name="description" value={description} onChange={(e) => setDescription(e.target.value)}/>
+                    </label>
+                  </div>
+
+                  <br></br>
+
+                  <div className="width-custom">
+                    <label className="width-custom">
+                      <h5 class="card-title" style ={{color: "black"}}>Image URL</h5>
+                      <br></br>
+                      <input type="text" class="form-control" name="image" value={URL} onChange={(e) => setURL(e.target.value)}/>
+                    </label>
+                  </div>
+
+                  <br></br>
+
+                  <div>
+                    <label>
+                      <h5 class="card-title" style ={{color: "black"}}>Backing Time(In Seconds)</h5>
+                      <br></br>
+                      <input type="number" class="form-control width-fixed margin-custom" name="time" value={time} onChange={(e) => setTime(e.target.value)}/>
+                    </label>
+                  </div>
+
+                  <br></br>
+
+                  <div>
+                    <label>
+                      <h5 class="card-title" style ={{color: "black"}}>Backer Value(In Wei)</h5>
+                      <br></br>
+                      <input type="number" class="form-control width-fixed margin-custom" name="val" value={val} onChange={(e) => setVal(e.target.value)}/>
+                    </label>
+                  </div>
+
+                  <br></br>
+
+                  <div>
+                    <label>
+                      <h5 class="card-title" style ={{color: "black"}}>Total Backing Required(In Wei)</h5>
+                      <br></br>
+                      <input type="number" class="form-control width-fixed margin-c1" name="tot" value={tot} onChange={(e) => setTot(e.target.value)}/>
+                    </label>
+                  </div>
+
+                  <br></br>
+
+                  <div>
+                    <label>
+                      <h5 class="card-title" style ={{color: "black"}}>First Milestone Payout Percentage(in %)</h5>
+                      <br></br>
+                      <input type="number" name="p1" placeholder="Example: 45" class="form-control width-fixed margin-c2"value={per1} onChange={(e) => setPer1(e.target.value)}/>
+                    </label>
+                  </div>
+
+                  <br></br>
+
+                  <div>
+                    <label>
+                      <h5 class="card-title" style ={{color: "black"}}>Second Milestone Payout Percentage(in %)</h5>
+                      <br></br>
+                      <input type="number" placeholder="Example: 5" class="form-control width-fixed margin-c3"name="p2" value={per2} onChange={(e) => setPer2(e.target.value)}/>
+                    </label>
+                  </div>
+
+                  </form>
                   </Card.Text>
                   <br></br>
                   <Button variant="primary" className='submit-button' onClick={() => { deployContract(props.provider, props.address)}}>Create Project</Button>

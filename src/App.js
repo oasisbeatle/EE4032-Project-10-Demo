@@ -115,7 +115,7 @@ export default function App() {
     }
 
     const withdrawProject = async () => {
-        const wid = await currentContract.methods.withdraw().call();
+        const wid = await currentContract.methods.withdraw().send({from: address});
         return wid;
     }
 

@@ -8,6 +8,7 @@ import {ethers} from 'ethers';
 import Web3 from "web3";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import React, { useState, useEffect } from 'react';
 
 
 import home from '../../images/home.svg';
@@ -30,6 +31,10 @@ export default function GetBacker(props){
   const handleChangeVoteNum = event => {
     props.setVoted(event.target.value);
   };
+
+  useEffect(() => {    
+    props.getMilestone(); //update screen
+  });
 
   const BackingStateZero = () =>{
     return(
@@ -69,14 +74,8 @@ export default function GetBacker(props){
             </div>
             <br></br>
             <div>
-                 <button className="btn custom-button" type="button" onClick={props.backingPhaseEndUpdate}>
+                 <button disabled={props.disableEndBackingPhaseButton} className="btn custom-button" type="button" onClick={props.backingPhaseEndUpdate}>
                           End Backing Phase
-                 </button>
-            </div>
-            <br></br>
-            <div>
-                 <button className="btn custom-button" type="button" onClick={props.recountMilestoneUpdate}>
-                          Recount Milestone
                  </button>
             </div>
             <br></br>
@@ -103,8 +102,14 @@ export default function GetBacker(props){
             <button onClick={props.voteHandle} className=" btn custom-button" type="button">
                       Vote
             </button>
+            <br></br>
+            <div>
+                 <button disabled={props.disableRecountMilestoneButton} className="btn custom-button" type="button" onClick={props.recountMilestoneUpdate}>
+                          Recount Milestone
+                 </button>
+            </div>
           <br></br>
-          <div class="btn-group" role="group" aria-label="Basic example">
+          <div className="btn-group" role="group" aria-label="Basic example">
           <div>
                <button className="btn custom-button" type="button" onClick={props.withdrawVal}>
                         Refund
