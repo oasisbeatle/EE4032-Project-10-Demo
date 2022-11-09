@@ -6,13 +6,6 @@ pragma solidity >=0.4.22 <0.6.0;
 contract CrowdFundingList {
     mapping(uint => address) contractList;
     uint iterator = 0;
-    stats Struct public stats;
-
-    struct statsStruct {
-        uint totalProjects
-        uint totalBacking;
-        uint totalDonations;
-    }
 
     function AddContractToList(address a) public {
         contractList[iterator] = a;
