@@ -54,6 +54,9 @@ export default function App() {
     const [currentTitle, setCurrentTitle] =useState(null);
     const [currentImage, setCurrentImage] =useState(null);
     const [currentDesc, setCurrentDesc] =useState(null);
+    const [numBackers, setNumBackers] = useState(null);
+    const [totalAmountBacked, setTotalAmountBacked] = useState(null);
+    const [numProjects, setNumProjects] = useState(null);
 
 
 
@@ -90,7 +93,6 @@ export default function App() {
             setIsConnected(false);
         }
     }
-
 
 ////// Contract Deployment.
     // IMPORTANT: async / await is essential to get values instead of Promise.
@@ -135,8 +137,10 @@ export default function App() {
     }
 
     const getProjects = async() => {
-      var contractList =[]
-      var projectList = []
+      var contractList =[];
+      var projectList = [];
+      var totalBackers = 0;
+      var totalAmount = parseInt(0);
       const count = await listContract.methods.getCount().call();
       for(var i = 0; i < count; i++){
         const address = await listContract.methods.getProject(i).call();
@@ -145,11 +149,23 @@ export default function App() {
         const title = await projectContract.methods.getTitle().call();
         const description = await projectContract.methods.getDescription().call();
         const image = await projectContract.methods.getImage().call();
+        const fundingGoal = await projectContract.methods.getTotalBackingRequired().call();
+        const backingPledged = await projectContract.methods.getTotalMoney().call();
+        totalAmount = totalAmount + parseInt(backingPledged);
+        if(backingPledged != 0){
+          totalBackers = totalBackers + 1;
+        }
+        const endTime = await projectContract.methods.getBackingEndTime().call();
         projectList.push({'id':i, 'title':title, 'description': description,
-        'image': image, 'address':address});
+        'image': image, 'address':address, 'fundingGoal':fundingGoal,
+        'backingPledged':backingPledged, 'endTime':endTime});
+        console.log(endTime);
       }
       setProjectsList(projectList);
       setAddressList(contractList);
+      setTotalAmountBacked(totalAmount);
+      setNumBackers(totalBackers);
+      setNumProjects(count);
     }
     // const getData = async () => {
     //     //const count = await listContract.methods.getCount().call();
@@ -281,6 +297,9 @@ export default function App() {
             <Testing
               address={address}
               isConnected = {isConnected}
+              totalAmountBacked={totalAmountBacked}
+              totalBackers={numBackers}
+              totalProjects={numProjects}
             />
         )
     }
