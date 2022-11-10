@@ -131,7 +131,7 @@ a:active { text-decoration: none; color: black; }
 .btn {
     border: 3px solid rgb(256,256,256,0.1);
     color: black;
-    background-color: rgb(256,256,256,0.7);
+    background-color: turquoise;
 }
 .btn:disabled {
     border: 3px solid rgb(256,256,256,0.1);
@@ -163,6 +163,7 @@ a:active { text-decoration: none; color: black; }
 }
 .card-title{
     color: #070707;
+    font-size: 18px;
 }
 .stats{
     color: lightskyblue;

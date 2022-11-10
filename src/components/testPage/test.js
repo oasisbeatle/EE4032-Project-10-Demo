@@ -21,6 +21,12 @@ export default function Testing(props) {
         Navigate('../InterfaceDemo/CreateProject');
       }
 
+  function conversion(num){
+    const x = Math.pow(10,18);
+    num = num/(x);
+    return num;
+  }
+
   const InfoCards = () => {
       return (
         <div className="card-container">
@@ -31,8 +37,7 @@ export default function Testing(props) {
             <Card.Body>
               <Card.Title>Projects</Card.Title>
               <br></br>
-              <Card.Text>
-              </Card.Text>
+              <Card.Text><h4>{props.totalProjects}</h4></Card.Text>
             </Card.Body>
           </Card>
         </Col>
@@ -42,8 +47,7 @@ export default function Testing(props) {
             <Card.Body>
               <Card.Title>Backed</Card.Title>
               <br></br>
-              <Card.Text>
-              </Card.Text>
+              <Card.Text><h4>{props.totalBackers}</h4></Card.Text>
             </Card.Body>
           </Card>
         </Col>
@@ -53,9 +57,7 @@ export default function Testing(props) {
             <Card.Body>
               <Card.Title>Contributed</Card.Title>
               <br></br>
-              <Card.Text>
-                ETH
-              </Card.Text>
+              <Card.Text><h4>{conversion(props.totalAmountBacked)} ETH </h4></Card.Text>
             </Card.Body>
           </Card>
         </Col>
@@ -80,7 +82,6 @@ export default function Testing(props) {
             <img src={LEAF} className="leaf-logo"/>
             <h2> In Crowdfunding, We Trust</h2>
             <h1> GET BACKER. </h1>
-            <br></br>
           <InfoCards/>
           <AddProject/>
         </div>

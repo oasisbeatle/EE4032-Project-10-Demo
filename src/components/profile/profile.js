@@ -2,7 +2,6 @@ import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom"
 
 
-
 import "./profile.css";
 import "../../global.css";
 import { GlobalToolBar } from "../../global";
@@ -11,25 +10,44 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import ProgressBar from 'react-bootstrap/ProgressBar'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import {useState, useRef, useEffect} from 'react';
+
 
 export default function Profile(props){
+
+  const [display, setDisplay] = useState(null);
+
   const handler = (event) => {
     props.updateProject(event.currentTarget.dataset.index);
   }
 
-  const columnsPerRow = 3
+  function getProgress(currentVal, totalVal){
+    var progress = (currentVal/totalVal) * 100;
+    return progress;
+  }
+
+  const columnsPerRow = 3;
+
 
   function RenderCards(){
     const ListItems = (card, index) => {
       return(
         <Col>
         <Card key={index} className="ccard" bg="light" >
-          <Card.Img variant="top" src={METAMASK} className="backimage"/>
+          <Card.Img variant="top" src={card.image} className="backimage" alt=" "/>
           <Card.Body className="card-body">
           <Card.Title className="card-title" > {card.title} </Card.Title>
-           <Button data-index={card.address} onClick={handler}>
-            Go To Product
-           </Button>
+          <br></br>
+            <p></p>
+            <span> Amount Raised: {getProgress(card.backingPledged, card.fundingGoal)}%</span>
+            <ProgressBar variant="success" now={getProgress(card.backingPledged, card.fundingGoal)}/>
+            <br></br>
+              <Button data-index={card.address} onClick={handler}>
+                  Go To Product
+              </Button>
           </Card.Body>
         </Card>
         </Col>

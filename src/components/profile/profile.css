@@ -16,7 +16,7 @@ html, body{
 
 
 .ccard{
-  height: 300px !important;
+  height: 400px !important;
   width: auto !important;;
   opacity: 0.8 !important;
   border-radius: 25px !important;
@@ -39,6 +39,7 @@ padding:10px 30px;
   width: 150px !important;
   border-radius: 25px !important;
   position: relative;
+  margin-top: 20px;
 }
 
 .card-body{
