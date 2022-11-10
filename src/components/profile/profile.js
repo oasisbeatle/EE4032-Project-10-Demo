@@ -2,7 +2,6 @@ import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom"
 
 
-
 import "./profile.css";
 import "../../global.css";
 import { GlobalToolBar } from "../../global";
@@ -14,10 +13,11 @@ import Col from 'react-bootstrap/Col';
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import {useState, useRef} from 'react';
+import {useState, useRef, useEffect} from 'react';
 
 
 export default function Profile(props){
+
   const [display, setDisplay] = useState(null);
 
   const handler = (event) => {
@@ -31,15 +31,18 @@ export default function Profile(props){
 
   const columnsPerRow = 3;
 
+
   function RenderCards(){
     const ListItems = (card, index) => {
       return(
         <Col>
         <Card key={index} className="ccard" bg="light" >
-          <Card.Img variant="top" src={METAMASK} className="backimage"/>
+          <Card.Img variant="top" src={card.image} className="backimage" alt=" "/>
           <Card.Body className="card-body">
           <Card.Title className="card-title" > {card.title} </Card.Title>
           <br></br>
+            <p></p>
+            <span> Amount Raised: {getProgress(card.backingPledged, card.fundingGoal)}%</span>
             <ProgressBar variant="success" now={getProgress(card.backingPledged, card.fundingGoal)}/>
             <br></br>
               <Button data-index={card.address} onClick={handler}>

@@ -28,12 +28,45 @@ export default function GetBacker(props){
   //   navigate('/InterfaceDemo');
   // }
 
+
+// code implemented from: https://stackoverflow.com/questions/36098913/convert-seconds-to-days-hours-minutes-and-seconds
+  function getCountdown() {
+    var counter = 0;
+    var timeleft = props.timeLeft;
+
+    function convertSeconds(seconds) {
+      var d = Math.floor(seconds / (3600*24));
+      var h = Math.floor(seconds % (3600*24) / 3600);
+      var m = Math.floor(seconds % 3600 / 60);
+      var s = Math.floor(seconds % 60);
+
+      var days = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
+      var hours = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+      var minutes = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+      var seconds = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+      return days + hours + minutes + seconds;
+    }
+
+    function setup() {
+      var timer = document.getElementById("timer");
+      timer.innerHTML = (convertSeconds(timeleft - counter));
+
+      function timeIt() {
+        counter++;
+        timer.innerHTML = (convertSeconds(timeleft - counter));
+      }
+      setInterval(timeIt, 1000);
+    }
+    setup();
+}
+
   const handleChangeVoteNum = event => {
     props.setVoted(event.target.value);
   };
 
-  useEffect(() => {    
+  useEffect(() => {
     props.getMilestone(); //update screen
+    getCountdown();
   });
 
   const BackingStateZero = () =>{
@@ -163,7 +196,13 @@ export default function GetBacker(props){
       <Row xs={1} md={1}>
         <Col>
           <Card className="project-card">
-            <Card.Img variant="top" className="image" src={METAMASK}/>
+            <br></br>
+            <div className="align-h">
+              <h4> Time Left: &nbsp;</h4>
+              <h4 id='timer'></h4>
+            </div>
+            <br></br>
+            <Card.Img variant="top" className="image" src={props.image}/>
             <Card.Body>
               <Card.Title>{props.title}</Card.Title>
               <Card.Text>{props.desc}</Card.Text>

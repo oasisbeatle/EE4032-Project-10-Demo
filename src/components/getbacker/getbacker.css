@@ -13,8 +13,8 @@
 }
 
 .image{
-  width: 50%;
-  height: 50%;
+  width: 40%;
+  height: 40%;
 }
 
 
@@ -65,3 +65,8 @@ ul#horizontal-list {
 	ul#horizontal-list li {
     display: inline;
 	}
+
+.align-h{
+  display: flex;
+  color: turquoise;
+}

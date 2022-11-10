@@ -57,7 +57,7 @@ export default function App() {
     const [numBackers, setNumBackers] = useState(null);
     const [totalAmountBacked, setTotalAmountBacked] = useState(null);
     const [numProjects, setNumProjects] = useState(null);
-
+    const [timeLeft, setTimeLeft] = useState(null);
 
 
 ////// connect to MetaMask.
@@ -274,9 +274,11 @@ export default function App() {
       const title = await contract.methods.getTitle().call();
       const description = await contract.methods.getDescription().call();
       const image = await contract.methods.getImage().call();
+      const seconds = await contract.methods.getBackingEndTime().call();
       setCurrentTitle(title);
       setCurrentDesc(description);
       setCurrentImage(image);
+      setTimeLeft(seconds);
       navigate('/InterfaceDemo/getbacker');
 
     }
@@ -333,6 +335,7 @@ export default function App() {
                 setVoted={setVoted}
                 disableEndBackingPhaseButton={disableEndBackingPhaseButton}
                 disableRecountMilestoneButton={disableRecountMilestoneButton}
+                timeLeft = {timeLeft}
             />
         )
     }

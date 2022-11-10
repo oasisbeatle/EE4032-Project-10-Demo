@@ -39,6 +39,7 @@ padding:10px 30px;
   width: 150px !important;
   border-radius: 25px !important;
   position: relative;
+  margin-top: 20px;
 }
 
 .card-body{

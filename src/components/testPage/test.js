@@ -82,7 +82,6 @@ export default function Testing(props) {
             <img src={LEAF} className="leaf-logo"/>
             <h2> In Crowdfunding, We Trust</h2>
             <h1> GET BACKER. </h1>
-            <br></br>
           <InfoCards/>
           <AddProject/>
         </div>

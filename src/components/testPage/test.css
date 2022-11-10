@@ -9,7 +9,7 @@
 }
 
 .info-card{
-  height: 250px !important;
+  height: 230px !important;
   width: auto !important;
   background-color: rgb(256,256,256,0.75) !important;
   justify-content: center !important;
@@ -24,7 +24,7 @@
 }
 
 .leaf-logo{
-  height: 250px;
+  height: 190px;
   filter: opacity(0.5) drop-shadow(0 0 0 turquoise);
 }
 
