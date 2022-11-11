@@ -171,7 +171,7 @@ export default function GetBacker(props){
       )
   }
 
-  function ChooseBackingState(props){
+  function ChooseBackingState(){
       if(props.milestone === '0'){
         return(<BackingStateZero/>);
       }
