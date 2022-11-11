@@ -24,6 +24,7 @@ import METAMASK from '../../images/MetaMask_Fox.svg';
 export default function GetBacker(props){
   const navigate = useNavigate();
 
+  const[timerText, setTimerText] = useState(null);
   // const loginPage = () => {
   //   navigate('/InterfaceDemo');
   // }
@@ -50,6 +51,7 @@ export default function GetBacker(props){
     function setup() {
       var timer = document.getElementById("timer");
       timer.innerHTML = (convertSeconds(timeleft - counter));
+      setTimerText("Time left:");
 
       function timeIt() {
         counter++;
@@ -66,7 +68,11 @@ export default function GetBacker(props){
 
   useEffect(() => {
     props.getMilestone(); //update screen
-    getCountdown();
+    if(props.milestone === '1'){
+      getCountdown();
+    } else {
+      setTimerText('TIMER EXPIRED');
+    }
   });
 
   const BackingStateZero = () =>{
@@ -159,7 +165,7 @@ export default function GetBacker(props){
       )
   }
 
-  function ChooseBackingState(){
+  function ChooseBackingState(props){
       if(props.milestone === '0'){
         return(<BackingStateZero/>);
       }
@@ -198,7 +204,7 @@ export default function GetBacker(props){
           <Card className="project-card">
             <br></br>
             <div className="align-h">
-              <h4> Time Left: &nbsp;</h4>
+              <h4>{timerText}&nbsp;</h4>
               <h4 id='timer'></h4>
             </div>
             <br></br>
