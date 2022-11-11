@@ -35,6 +35,12 @@ export default function GetBacker(props){
     var counter = 0;
     var timeleft = props.timeLeft;
 
+    if(timeleft <= 0){
+      setTimerText("TIMER EXPIRED!");
+    } else {
+      setTimerText("Time left:");
+    }
+
     function convertSeconds(seconds) {
       var d = Math.floor(seconds / (3600*24));
       var h = Math.floor(seconds % (3600*24) / 3600);
@@ -51,7 +57,7 @@ export default function GetBacker(props){
     function setup() {
       var timer = document.getElementById("timer");
       timer.innerHTML = (convertSeconds(timeleft - counter));
-      setTimerText("Time left:");
+
 
       function timeIt() {
         counter++;
