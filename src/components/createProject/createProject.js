@@ -37,7 +37,7 @@ function HomePage(props) {
     event.preventDefault();
   }
 
-  const deployContract = (provider, address) => {
+  const deployContract = (provider, address, getProjects) => {
     document.getElementById("deployForm").reset();
     setPageState(1);
     (async function () {
@@ -46,6 +46,7 @@ function HomePage(props) {
         let contract = await factory.deploy(ethers.BigNumber.from(time), address, ethers.BigNumber.from(val), ethers.BigNumber.from(5), ethers.BigNumber.from(tot), title, description, URL, ethers.BigNumber.from(per1), ethers.BigNumber.from(per2), ethers.BigNumber.from(100), LIST_CONTRACT_ADDRESS);
         console.log(contract);
         setPageState(2);
+        getProjects();
       } catch (err) {
         setPageState(3);
         console.log(err);
@@ -148,7 +149,7 @@ function HomePage(props) {
                   </form>
                   </Card.Text>
                   <br></br>
-                  <Button variant="primary" className='submit-button' onClick={() => { deployContract(props.provider, props.address)}}>Create Project</Button>
+                  <Button variant="primary" className='submit-button' onClick={() => { deployContract(props.provider, props.address, props.getProjects)}}>Create Project</Button>
                 </Card.Body>
               </Card>
             </Col>
@@ -180,7 +181,8 @@ export default function CreateProject(props) {
         {
           props.isConnected ?
             <HomePage provider={props.provider}
-              address={props.address} /> :
+              address={props.address}
+              getProjects={props.getProjects} /> :
             <Navigate to='/InterfaceDemo' />
         }
       </div>

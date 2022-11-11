@@ -275,10 +275,12 @@ export default function App() {
       const description = await contract.methods.getDescription().call();
       const image = await contract.methods.getImage().call();
       const seconds = await contract.methods.getBackingEndTime().call();
+      const currentBlock = await provider.getBlockNumber();
+      const blockTimestamp = (await provider.getBlock(currentBlock)).timestamp;
       setCurrentTitle(title);
       setCurrentDesc(description);
       setCurrentImage(image);
-      setTimeLeft(seconds);
+      setTimeLeft(seconds - blockTimestamp);
       navigate('/InterfaceDemo/getbacker');
 
     }
@@ -312,6 +314,7 @@ export default function App() {
             isConnected = {isConnected}
             address={address}
             provider={provider}
+            getProjects={getProjects}
             />
         )
     }
