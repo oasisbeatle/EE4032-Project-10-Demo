@@ -1,5 +1,7 @@
 # Getting Started with GetBacker
 
+GetBacker is an interactive application to implement a crowdfunding system that allows the backers of a particular product to vote for different phases or milestones of the product. 
+
 ## To interact with the contract
 
 1. Clone the project into a local director
